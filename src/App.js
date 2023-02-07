@@ -4,6 +4,8 @@ import {db, storage} from './firebase-config';
 import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc} from 'firebase/firestore';
 import {ref, uploadBytes} from 'firebase/storage';
 import {v4} from 'uuid'
+
+
 /*
  * Note for all team members: I have added comments to my changes below. I have hooked up a google firestore database
 already. There are going to be a lot of changes. This is just a test to see if it was all connected properly. A lot of the 
