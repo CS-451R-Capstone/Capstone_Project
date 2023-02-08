@@ -13,6 +13,7 @@ functions and React Hooks in this file can be used again for actual functionalit
  */
 
 function App() {
+  //react hook to change the 
   const [fileUpload, setFileUpload] = useState(null);
   //react hook to change the state of a new name (added, updated, deleted) to the database
   const [newName, setNewName] = useState("");
@@ -84,7 +85,7 @@ function App() {
       onChange={(event) => {setNewName(event.target.value)}}/>
       <input type="number" 
       placeholder="Age..."
-      onChange={(event) => {setNewAge(event.target.value)}}/>
+      onChange={(event) => {setNewAge(event.target.valueAsNumber)}}/>
       <button onClick={createUser}>Create User</button>
       {users.map((user) => {
         return(
