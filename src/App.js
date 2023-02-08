@@ -4,6 +4,7 @@ import {db, storage} from './firebase-config';
 import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc} from 'firebase/firestore';
 import {ref, uploadBytes} from 'firebase/storage';
 import {v4} from 'uuid'
+import NavBar from "./NavBar";
 
 
 /*
@@ -81,6 +82,9 @@ function App() {
 
   return (
     <div className="App">
+      <div>
+        <NavBar />
+      </div>
       <input placeholder="Name..." 
       onChange={(event) => {setNewName(event.target.value)}}/>
       <input type="number" 
@@ -109,7 +113,6 @@ function App() {
         <button onClick={uploadFile}>Upload File</button> 
 
       </div>
-     
 
       {
         /*
