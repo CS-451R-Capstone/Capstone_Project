@@ -1,7 +1,5 @@
 import './App.css';
-<<<<<<< HEAD
 //my branch
-=======
 import { useState, useEffect } from 'react';
 import {db, storage} from './firebase-config';
 import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc} from 'firebase/firestore';
@@ -16,7 +14,6 @@ already. There are going to be a lot of changes. This is just a test to see if i
 functions and React Hooks in this file can be used again for actual functionality. 
  */
 
->>>>>>> 5734eb1933f80c309dee6bdd2de69111bcd0aa4b
 function App() {
   const [fileUpload, setFileUpload] = useState(null);
   //react hook to change the state of a new name (added, updated, deleted) to the database
