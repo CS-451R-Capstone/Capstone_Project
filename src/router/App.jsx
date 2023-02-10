@@ -1,8 +1,8 @@
-import Login from './pages/Login';
-import SignUp from './pages/SignUp';
-import AuthDetails from './AuthDetails';
-import Home from './pages/Home';
-import './App.css';
+import Login from '../pages/Login';
+//import SignUp from '../pages/SignUp';
+import AuthDetails from '../AuthDetails';
+import Home from '../pages/Home';
+import '../App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
           <Switch>
             <Route exact path='/'>
               <Login/>
-              <SignUp/>
+              {/*<SignUp/>*/}
               <AuthDetails/>
             </Route>
             <Route path='/home'>

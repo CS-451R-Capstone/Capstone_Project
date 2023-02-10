@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {auth} from '../firebase-config';
+import {db} from '../firebase-config';
 import {createUserWithEmailAndPassword} from '@firebase/auth';
 import {Link} from 'react-router-dom';
 
@@ -14,6 +15,7 @@ function SignUp(){
         }).catch((error) => {
             console.log(error);
         })
+
     }
     return(
         <div className='sign-up-container'>
