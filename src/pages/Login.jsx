@@ -1,23 +1,28 @@
 import React, {useState} from 'react';
-import {auth} from './firebase-config';
-import {createUserWithEmailAndPassword} from '@firebase/auth';
+import {auth} from '../firebase-config';
+import {signInWithEmailAndPassword} from '@firebase/auth';
+import logo from '../UMKC_Logo.png';
+import {Link} from 'react-router-dom';
 
-function SignUp(){
+function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const signUp = (event) => {
+    const signIn = (event) => {
         event.preventDefault();
-        createUserWithEmailAndPassword(auth, email, password).then((userCredential) => {
+        signInWithEmailAndPassword(auth, email, password).then((userCredential) => {
             console.log(userCredential);
         }).catch((error) => {
             console.log(error);
         })
     }
     return(
-        <div className='sign-up-container'>
-            <form onSubmit={signUp}>
-                <h1>Create Account</h1>
+        <div className='sign-in-container'>
+            <div className="logo">
+                <img src={logo} alt="UMKC" />
+            </div>
+            <form onSubmit={signIn}>
+                <h1>Log In</h1>
                 <input 
                 type="email" 
                 placeholder='Enter your email...' 
@@ -28,9 +33,12 @@ function SignUp(){
                 placeholder='Enter your password...' 
                 value={password}
                 onChange={(event) => {setPassword(event.target.value)}}/>
-                <button type="submit">Sign Up</button>
+                <Link to='/home'>
+                    <button type="submit">Log In</button>
+                </Link>
+                
             </form>
         </div>
     )
 }
-export default SignUp;
+export default Login;
