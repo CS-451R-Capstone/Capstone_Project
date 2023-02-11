@@ -15,7 +15,9 @@ function NavBar() {
                     </Link>
                     
                     <li><a>My Account</a></li>
-                    <li><a>Submission Portal</a></li>
+                    <Link to='/submission_portal'>
+                        <li><a>Submission Portal</a></li>
+                    </Link>
                     {/*<li><a>About</a></li>*/}
                     {/**
                      * We might have to change the logout button to use the method useHistory() instead depending on how

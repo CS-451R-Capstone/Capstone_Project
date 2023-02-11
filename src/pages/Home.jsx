@@ -1,9 +1,7 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
-import {db, storage} from '../firebase-config';
+import {db} from '../firebase-config';
 import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc} from 'firebase/firestore';
-import {ref, uploadBytes} from 'firebase/storage';
-import {v4} from 'uuid'
 import NavBar from "../navigation/NavBar";
 
 
@@ -14,8 +12,6 @@ functions and React Hooks in this file can be used again for actual functionalit
  */
 
 function Home() {
-  //react hook to change the 
-  const [fileUpload, setFileUpload] = useState(null);
   //react hook to change the state of a new name (added, updated, deleted) to the database
   const [newName, setNewName] = useState("");
   //react hook to change the state of a new age (added, updated, deleted) added to the database
@@ -52,16 +48,7 @@ function Home() {
     await deleteDoc(userDoc);
 
   }
-  //function to add files
-  const uploadFile = () => {
-    if(fileUpload == null) return;
-    const fileRef = ref(storage, `images/${fileUpload.name + v4()}`);
-    uploadBytes(fileRef, fileUpload).then(() =>{
-      alert("file uploaded!");
-    })
 
-
-  };
   //React hook to update changes as soon as someone clicks the refresh or when the page loads
   //don't ever make this a const function. instead any other function created inside should be declared a const.
   //then outside that const function, call it.
@@ -108,11 +95,6 @@ function Home() {
         ) 
       })
       }
-      <div>
-        <input type="file" onChange={(event) => {setFileUpload(event.target.files[0])}}/>
-        <button onClick={uploadFile}>Upload File</button> 
-
-      </div>
 
       {
         /*
