@@ -21,12 +21,12 @@ function Home() {
   //react hook to change the state of a new age (added, updated, deleted) added to the database
   const [newAge, setNewAge] = useState(0);
   //react hook to change the state of users from the database
-  const [users, setUsers] = useState([]);
+  const [testInfo, setTestInfo] = useState([]);
   //specifies the collection from Google Firestore database to get
-  const usersCollectionRef = collection(db, "users");
+  const testCollectionRef = collection(db, "test");
   //function to update the user's age
-  const updateUser = async(id, age) =>{
-    const userDoc = doc(db, "users", id);
+  const updateTestEntry = async(id, age) =>{
+    const testDoc = doc(db, "test", id);
 
     const newFields = {age: age + 1};
     /*
@@ -34,20 +34,20 @@ function Home() {
      always use the keyword 'await' because 
      we don't know when exactly the call will be made
     */
-    await updateDoc(userDoc, newFields);
+    await updateDoc(testDoc, newFields);
 
 
   };
   //function to add new user to the database
-  const createUser = async() => {
+  const createTestEntry = async() => {
     //API call to add new user (very similar to POST HTTP protocol)
-    await addDoc(usersCollectionRef, {name: newName, age: newAge});
+    await addDoc(testCollectionRef, {name: newName, age: newAge});
 
 
   };
   //function to delete a user from the database (requires the id of the user)
-  const deleteUser = async(id) => {
-    const userDoc = doc(db, "users", id);
+  const deleteTestEntry = async(id) => {
+    const userDoc = doc(db, "test", id);
     //API call to delete a user (very similar to DELETE HTTP protocol)
     await deleteDoc(userDoc);
 
@@ -66,19 +66,19 @@ function Home() {
   //don't ever make this a const function. instead any other function created inside should be declared a const.
   //then outside that const function, call it.
   useEffect(() => {
-    const getUsers = async () => {
+    const getTestInfo = async () => {
       //api call to get the data from the database (similar to a GET HTTP protocol)
-      const data = await getDocs(usersCollectionRef);
+      const data = await getDocs(testCollectionRef);
       //console.log(data);
       //filters through the data from the database and saves the users to display on the webpage
-      setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
+      setTestInfo(data.docs.map((doc) => ({...doc.data(), id: doc.id})));
 
 
     }
 
-    getUsers();
+    getTestInfo();
 
-  }, [usersCollectionRef])
+  }, [testCollectionRef])
 
   return (
     <div className="App">
@@ -90,18 +90,18 @@ function Home() {
       <input type="number" 
       placeholder="Age..."
       onChange={(event) => {setNewAge(event.target.valueAsNumber)}}/>
-      <button onClick={createUser}>Create User</button>
-      {users.map((user) => {
+      <button onClick={createTestEntry}>Create Test Entry</button>
+      {testInfo.map((testEntry) => {
         return(
           <div> 
-          <h1>Name: {user.name} </h1>
-          <h1>Age: {user.age}</h1>
+          <h1>Name: {testEntry.name} </h1>
+          <h1>Age: {testEntry.age}</h1>
           <button 
-          onClick={() => {updateUser(user.id, user.age)}}>
+          onClick={() => {updateTestEntry(testEntry.id, testEntry.age)}}>
             Increase Age
           </button>
-          <button onClick={() => {deleteUser(user.id)}}>
-            Delete User
+          <button onClick={() => {deleteTestEntry(testEntry.id)}}>
+            Delete Test Entry
           </button>
           </div>
           
