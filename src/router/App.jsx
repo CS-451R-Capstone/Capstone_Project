@@ -11,19 +11,20 @@ function App() {
       <div className="App">
         <div className='content'>
           <Switch>
-            <Route exact path='/'>
-              <Login/>
-              {/*<SignUp/>*/}
-              <AuthDetails/>
-            </Route>
             <Route path='/home'>
               <Home/>
             </Route>
+
+            <Route exact path='/'>
+              <Login/>
+              <AuthDetails/>
+            </Route>
+
           </Switch>
 
         </div>
 
-     </div>
+      </div>
 
 
     </Router>

@@ -17,9 +17,7 @@ function NavBar() {
                     <li><a>My Account</a></li>
                     <li><a>Submission Portal</a></li>
                     {/*<li><a>About</a></li>*/}
-                    <Link to='/'>
-                        <li><a>Logout</a></li>
-                    </Link>
+                    <li><a>Logout</a></li>
                     
                     
                 </ul>

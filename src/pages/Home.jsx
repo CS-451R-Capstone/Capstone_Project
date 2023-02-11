@@ -78,7 +78,7 @@ function Home() {
 
     getUsers();
 
-  }, [])
+  }, [usersCollectionRef])
 
   return (
     <div className="App">
