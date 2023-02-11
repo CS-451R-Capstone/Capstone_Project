@@ -17,7 +17,13 @@ function NavBar() {
                     <li><a>My Account</a></li>
                     <li><a>Submission Portal</a></li>
                     {/*<li><a>About</a></li>*/}
-                    <li><a>Logout</a></li>
+                    {/**
+                     * We might have to change the logout button to use the method useHistory() instead depending on how
+                     * the home page will look like in the end. Because logout should sign out the user.
+                     */}
+                    <Link to='/'>
+                        <li><a>Logout</a></li>
+                    </Link>
                     
                     
                 </ul>
