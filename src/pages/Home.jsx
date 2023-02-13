@@ -1,8 +1,5 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
-import {db, storage} from '../firebase-config';
-import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc} from 'firebase/firestore';
-import {ref, uploadBytes} from 'firebase/storage';
 import {v4} from 'uuid'
 import NavBar from "../navigation/NavBar";
 
