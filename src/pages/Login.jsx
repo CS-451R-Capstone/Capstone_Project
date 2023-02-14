@@ -1,8 +1,4 @@
 import React, {useState} from 'react';
-import {auth} from '../firebase-config';
-import {db} from '../firebase-config';
-import {doc, setDoc} from '@firebase/firestore';
-import {signInWithEmailAndPassword} from '@firebase/auth';
 import logo from '../UMKC_Logo.png';
 import {useHistory} from 'react-router-dom';
 

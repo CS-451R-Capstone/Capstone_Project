@@ -1,7 +1,6 @@
 import '../App.css';
 import { useState, useEffect } from 'react';
-import {db} from '../firebase-config';
-import {collection, getDocs, addDoc, updateDoc, doc, deleteDoc} from 'firebase/firestore';
+import {v4} from 'uuid'
 import NavBar from "../navigation/NavBar";
 
 
