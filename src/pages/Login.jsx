@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import logo from '../UMKC_Logo.png';
-import Auth from '../Authenticator';
 
 function Login(){
 
@@ -28,7 +27,10 @@ function Login(){
                 value={password}
                 onChange={(event) => {setPassword(event.target.value)}}
                 />
-                <button onClick={Auth()}>Log In</button>
+                <Link to='/home'>
+                    <button>Log In</button>
+                </Link>
+                
                 
             </form>
         </div>

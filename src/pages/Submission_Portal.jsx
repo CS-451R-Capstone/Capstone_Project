@@ -1,8 +1,5 @@
 import '../App.css';
 import {useState} from 'react';
-import {ref, uploadBytes} from 'firebase/storage';
-import {v4} from 'uuid'
-import {storage} from '../firebase-config';
 import NavBar from '../navigation/NavBar';
 
 
@@ -13,10 +10,9 @@ function Submission_Portal(){
     //function to add files
     const uploadFile = () => {
         if(fileUpload == null) return;
-        const fileRef = ref(storage, `images/${fileUpload.name + v4()}`);
-        uploadBytes(fileRef, fileUpload).then(() =>{
-            alert("file uploaded!");
-        })
+        else{
+            alert('file uploaded!')
+        }
     };
     return(
         <div className='App'>
