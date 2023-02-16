@@ -1,6 +1,7 @@
 import React, {useState} from "react"
 import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
+import MyAccount from "../pages/MyAccount";
 
 function NavBar() {
     const [open, setOpen] = useState(false);
@@ -13,8 +14,9 @@ function NavBar() {
                     <Link to='/home'>
                         <li><a>Home</a></li>
                     </Link>
-                    
-                    <li><a>My Account</a></li>
+                    <Link to='/my-account'>
+                        <li><a>My Account</a></li>
+                    </Link>
                     <Link to='/submission_portal'>
                         <li><a>Submission Portal</a></li>
                     </Link>

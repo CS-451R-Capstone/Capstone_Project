@@ -1,10 +1,10 @@
 import Login from '../pages/Login';
 //import SignUp from '../pages/SignUp';
-import AuthDetails from '../AuthDetails';
 import Home from '../pages/Home';
 import '../App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Submission_Portal from '../pages/Submission_Portal';
+import MyAccount from '../pages/MyAccount';
 
 function App() {
   return (
@@ -17,10 +17,12 @@ function App() {
             </Route>
             <Route exact path='/'>
               <Login/>
-              <AuthDetails/>
             </Route>
             <Route path='/submission_portal'>
               <Submission_Portal/>
+            </Route>
+            <Route path='/my_account'>
+              <MyAccount/>
             </Route>
 
           </Switch>
