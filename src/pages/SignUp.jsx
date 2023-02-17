@@ -29,9 +29,9 @@ function SignUp(){
                 placeholder='Enter your password...' 
                 value={password}
                 onChange={(event) => {setPassword(event.target.value)}}/>
-                <Link to='/home'>
+                {/*<Link to='/home'>*/}
                     <button type="submit">Sign Up</button>
-                </Link>
+                {/*</Link>*/}
 
                 
             </form>
