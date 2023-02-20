@@ -1,0 +1,32 @@
+{
+    "class1": {
+        "className": "CS 5103",
+        "sectionID": "002",
+        "postings": {
+            "000": {
+                "applicants": {
+                    "001":{
+                        "name": "Sam",
+                        "resume": "",
+                        "studentID": 1
+                    }
+                },
+                "is_GTA_Required": true,
+                "job_title": "GTA"
+            },
+            "001":{
+                "applicants":{
+                    "000":{
+                        "name": "Henry",
+                        "resume": "",
+                        "studentID": 2
+                    }
+
+                },
+                "is_GTA_Required": false,
+                "job_title": "Grader"
+            }
+            
+        }
+    }
+}
