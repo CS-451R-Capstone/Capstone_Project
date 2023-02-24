@@ -27,7 +27,7 @@ async function listClasses()
             console.log();
             console.log(`name: ${result.className}`);
             console.log(`sectionID: ${result.sectionID}`);
-            console.dir(`posting: ${result.postings}`);
+            console.dir(result.postings['000'].job_title);
         });
      } catch (e) {
          console.error(e);
