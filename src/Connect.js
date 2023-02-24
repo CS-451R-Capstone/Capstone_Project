@@ -22,14 +22,13 @@ async function listClasses()
          await client.connect();
   
          // Make the appropriate DB calls
-         const databasesList = await client.db('mydb').collection('Classes').find({});
- 
- 
-         await databasesList.forEach((result, i) => {
-             console.log();
-             console.log(`${i + 1}. name: ${result.className}`);
-             console.log(`sectionID: ${result.sectionID}`);
-         });
+         const posting = await client.db('mydb').collection('Classes').find({});
+         await posting.forEach((result, i) => {
+            console.log();
+            console.log(`name: ${result.className}`);
+            console.log(`sectionID: ${result.sectionID}`);
+            console.dir(`posting: ${result.postings}`);
+        });
      } catch (e) {
          console.error(e);
      } finally {
