@@ -1,11 +1,11 @@
 const {MongoClient} = require('mongodb');
 
 
-/*
+
 const main = async() => {
    listClasses();
 }
-*/
+
 
 const listClasses = async() =>{
     /**
@@ -36,7 +36,6 @@ const listClasses = async() =>{
          }
     }
     
-    //main().catch(console.error);
-    export default listClasses;
+main().catch(console.error);
 
 
