@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-require("dotenv").config({path: './config.env'});
+require('dotenv').config({path: './config.env'});
+console.log(process.env)
 const port = 5000;
 app.use(cors());
 app.use(express.json());
