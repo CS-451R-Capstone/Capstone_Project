@@ -14,7 +14,7 @@ const dbo = require("../db/conn");
  
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(function (req, res) {
- let db_connect = dbo.getDb();
+ let db_connect = dbo.getDb('mydb');
  db_connect
    .collection("Classes")
    .find({})
