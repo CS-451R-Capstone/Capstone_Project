@@ -17,9 +17,14 @@ recordRoutes.route('/allClasses').get((req, res) => {
             }
             res.json(result);
         });
+    }).finally(() =>{
+        let close = dbo.closeServer();
+        close.then();
     });
 
     
 });
+
+
 
 module.exports = recordRoutes;
