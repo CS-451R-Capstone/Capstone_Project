@@ -1,5 +1,7 @@
 import '../App.css';
 import NavBar from "../navigation/NavBar";
+import {useEffect} from 'react';
+
 function Home() {
   return (
     <div className="App">
