@@ -11,7 +11,7 @@ const dbo = require("../db/connection");
 recordRoutes.route('/home').get((req, res) => {
     let connect = dbo.connectToServer();
     connect.then(db => {
-        db.collection('Classes').aggregate([{$project: {_id: 0, className: 1, sectionID: 1, postings: 1}}]).toArray((err, result) =>{
+        db.collection('Classes').aggregate([{$project: {_id: 0, className: 1, sectionID: 1}}]).toArray((err, result) =>{
             if(err){
                 throw err;
             }
