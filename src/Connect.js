@@ -23,6 +23,7 @@ const listClasses = async() =>{
       
              // Make the appropriate DB calls
              const posting = await client.db('mydb').collection('Classes').find({});
+             console.log(typeof(client.db('mydb')))
              await posting.forEach((result, i) => {
                 console.log();
                 console.log(`name: ${result.className}`);
