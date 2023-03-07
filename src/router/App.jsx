@@ -5,6 +5,7 @@ import '../App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Submission_Portal from '../pages/Submission_Portal';
 import MyAccount from '../pages/MyAccount';
+import Postings from '../pages/Postings';
 function App() {
   return (
     <Router>
@@ -17,10 +18,13 @@ function App() {
             <Route path='/home'>
               <Home/>
             </Route>
-            <Route path='/submission_portal'>
+            <Route path='/postings'>
+              <Postings/>
+            </Route>
+            <Route path='/submission-portal'>
               <Submission_Portal/>
             </Route>
-            <Route path='/my_account'>
+            <Route path='/my-account'>
               <MyAccount/>
             </Route>
 
