@@ -10,17 +10,39 @@ function Home() {
   useEffect(() => {
     async function getClasses(){
       const response = await fetch(`http://localhost:5000/home/`);
-      if(!response.ok){
-        const message = `An error occurred: ${response.statusText}`;
-        window.alert(message);
+      if(response.ok){
+        //const message = `An error occurred: ${response.statusText}`;
+        //window.alert(message);
+        let cardInfo = await response.json()
+        setCardInfo(cardInfo);
         return;
       }
-      console.log(response.json());
-      setCardInfo(cardInfo);
+      
     }
     getClasses();
     return;
   }, [cardInfo.length])
+  //console.log(cardInfo);
+
+  function classList(){
+    return cardInfo.map((card) => {
+      return (
+        <>
+         <Card>
+            <Card.Body>
+              <Card.Title>{`Section ID: `+card.sectionID}</Card.Title>
+              <Card.Text>{`Class: `+card.className}</Card.Text>
+            </Card.Body>
+            <Link to='/postings'>
+              <Button variant="primary">See Postings</Button>
+            </Link>
+          </Card>
+
+        </>
+
+      )
+    })
+  }
 
   return (
     <div className="App">
@@ -28,26 +50,7 @@ function Home() {
         <NavBar />
       </div>
       <div className="card-container">
-        {
-          cardInfo.map((card) => {
-            return(
-              <>
-                <Card>
-                  <Card.Body>
-                    <Card.Title>{card.sectionID}</Card.Title>
-                    <Card.Text>{card.className}</Card.Text>
-                  </Card.Body>
-                  <Link to='/postings'>
-                    <Button variant="primary">See Postings</Button>
-                  </Link>
-                </Card>
-
-              </>
-            )
-          })
-        }
-       
-
+        {classList()}
       </div>
     </div>
   );

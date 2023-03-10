@@ -18,13 +18,7 @@ recordRoutes.route('/home').get((req, res) => {
             res.json(result);
             
         });
-    })
-    .finally(() =>{
-        let close = dbo.closeServer();
-        close.then();
     });
-    
-
     
 });
 
@@ -46,10 +40,8 @@ recordRoutes.route('/postings').get((req, res) => {
             res.json(result);
         });
     })
-    .finally(() => {
-        let close = dbo.closeServer();
-        close.then();
-    });
+    
+    
     
 });
 
