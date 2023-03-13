@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import '../App.css';
 import NavBar from '../navigation/NavBar';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import {MDBCard, MDBCardBody, MDBCardText, MDBCardTitle} from 'mdb-react-ui-kit';
+import {MDBBtn} from 'mdb-react-ui-kit';
+//import Card from 'react-bootstrap/Card';
+//import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 function Postings(){
+    //gets a properties from the last page visited (in this case with the workflow, after someone clicks see postings under a class on the home page
+    // the properties get redirected here)
     const location = useLocation();
     //console.log(props, " props");
     //console.log(location, " useLocation Hook");
@@ -27,35 +31,34 @@ function Postings(){
         return;
     }, [postInfo.length])
 
+    //function that returns a JSX element of the list of postings for that class
     function postList(){
         return postInfo.map((post) => {
             if(post.className == card.className){
                 return(
                     <>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>{post.postings.posting1.job_title}</Card.Title>
-                                <Card.Text>{post.postings.posting1.is_GTA_Required ? "GTA is required" : "GTA is not required"}</Card.Text>
-                            </Card.Body>
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>{post.postings.posting1.job_title}</MDBCardTitle>
+                                <MDBCardText>{post.postings.posting1.is_GTA_Required ? "GTA is required" : "GTA is not required"}</MDBCardText>
+                            </MDBCardBody>
                             <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting1}}}>
-                                <Button variant="primary">Apply</Button>
+                                <MDBBtn>Apply</MDBBtn>
                             </Link>
-                        </Card>
-                        <Card>
-                            <Card.Body>
-                                <Card.Title>{post.postings.posting2.job_title}</Card.Title>
-                                <Card.Text>{post.postings.posting2.is_GTA_Required ? "GTA is required" : "GTA is not required"}</Card.Text>
-                            </Card.Body>
+                        </MDBCard>
+                        <MDBCard>
+                            <MDBCardBody>
+                                <MDBCardTitle>{post.postings.posting2.job_title}</MDBCardTitle>
+                                <MDBCardText>{post.postings.posting2.is_GTA_Required ? "GTA is required" : "GTA is not required"}</MDBCardText>
+                            </MDBCardBody>
                             <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting2}}}>
-                                <Button variant="primary">Apply</Button>
+                                <MDBBtn>Apply</MDBBtn>
                             </Link>
-                        </Card>
+                        </MDBCard>
                     </>
 
 
                 )
-                
-
 
             }
         })
@@ -70,9 +73,7 @@ function Postings(){
             <h2>
                 {`Classname: `+ card.className + ", Section ID:" + card.sectionID}
             </h2>
-            <div className="card-container">
-                {postList()}
-            </div>
+            {postList()}
             
             
         </div>

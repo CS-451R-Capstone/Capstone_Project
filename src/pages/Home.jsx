@@ -1,8 +1,8 @@
 import '../App.css';
 import NavBar from "../navigation/NavBar";
 import {useEffect, useState} from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
+import {MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBRow, MDBCol} from 'mdb-react-ui-kit';
+import {MDBBtn} from 'mdb-react-ui-kit';
 import {Link} from 'react-router-dom';
 
 function Home() {
@@ -27,32 +27,37 @@ function Home() {
   function classList(){
     return cardInfo.map((card) => {
       return (
-        <>
-         <Card>
-            <Card.Body>
-              <Card.Title>{`Section ID: `+card.sectionID}</Card.Title>
-              <Card.Text>{`Class: `+card.className}</Card.Text>
-            </Card.Body>
-            <Link to={{pathname: '/postings', state: {card: card}}}>
-              <Button variant="primary">See Postings</Button>
-            </Link>
-          </Card>
-
-        </>
+        <MDBRow>
+          <MDBCol sm='6'>
+            <MDBCard>
+              <MDBCardBody>
+                <MDBCardTitle>{`Class: `+card.className}</MDBCardTitle>
+                <MDBCardText>{`Section ID: `+card.sectionID}</MDBCardText>
+              </MDBCardBody>
+              <Link to={{pathname: '/postings', state: {card: card}}}>
+                <MDBBtn>See Postings</MDBBtn>
+              </Link>
+            </MDBCard>
+          </MDBCol>
+        </MDBRow>
+         
 
       )
     })
   }
 
   return (
-    <div className="App">
-      <div>
-        <NavBar />
+    <>
+      <div className="App">
+        <div>
+          <NavBar />
+        </div>
       </div>
-      <div className="card-container">
-        {classList()}
-      </div>
-    </div>
+      {classList()}
+    
+    </>
+   
+
   );
 }
 
