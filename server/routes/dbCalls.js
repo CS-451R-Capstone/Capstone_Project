@@ -29,10 +29,10 @@ recordRoutes.route('/postings').get((req, res) => {
             _id: 0, 
             className: 1,
             postings: 
-            {"000.is_GTA_Required": 1, 
-            "000.job_title": 1, 
-            "001.is_GTA_Required": 1, 
-            "001.job_title": 1}
+            {"posting1.is_GTA_Required": 1, 
+            "posting1.job_title": 1, 
+            "posting2.is_GTA_Required": 1, 
+            "posting2.job_title": 1}
         }}]).toArray((err, result) => {
             if(err){
                 throw err;

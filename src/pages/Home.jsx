@@ -9,7 +9,7 @@ function Home() {
   const [cardInfo, setCardInfo] = useState([]);
   useEffect(() => {
     async function getClasses(){
-      const response = await fetch(`http://localhost:5000/home/`);
+      const response = await fetch(`http://localhost:5000/home`);
       if(response.ok){
         //const message = `An error occurred: ${response.statusText}`;
         //window.alert(message);
@@ -33,7 +33,7 @@ function Home() {
               <Card.Title>{`Section ID: `+card.sectionID}</Card.Title>
               <Card.Text>{`Class: `+card.className}</Card.Text>
             </Card.Body>
-            <Link to='/postings'>
+            <Link to={{pathname: '/postings', state: {card: card}}}>
               <Button variant="primary">See Postings</Button>
             </Link>
           </Card>
