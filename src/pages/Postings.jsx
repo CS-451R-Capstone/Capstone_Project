@@ -34,7 +34,7 @@ function Postings(){
     //function that returns a JSX element of the list of postings for that class
     function postList(){
         return postInfo.map((post) => {
-            if(post.className == card.className){
+            if(post.className === card.className){
                 return(
                     <>
                         <MDBCard>
@@ -71,7 +71,7 @@ function Postings(){
             </div>
             <h1> Postings </h1>
             <h2>
-                {`Classname: `+ card.className + ", Section ID:" + card.sectionID}
+                {`Classname: `+ card.className + ", Section ID: " + card.sectionID}
             </h2>
             {postList()}
             
