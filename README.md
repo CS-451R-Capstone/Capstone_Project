@@ -1,7 +1,7 @@
 # Step 1
 Without this the front-end won't display anything on the page. DO THIS FIRST!
 ## Running the Backend Server
-
+First open a terminal and navigate to the server folder inside this project
 ### Available Scripts
 
 #### `npm run backend-server`
@@ -17,7 +17,7 @@ http://localhost:5000/postings
 # Step 2
 
 ## Running the front end
-
+Open another terminal and run npm start (both the terminal running the server and the terminal that's running the front end need to be open)
 ### Available Scripts
 
 #### `npm start`
@@ -96,5 +96,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-## If concurrently is not recognized then run 'npm install -g concurrently'
