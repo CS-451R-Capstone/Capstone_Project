@@ -3,6 +3,12 @@ import '../App.css';
 import NavBar from '../navigation/NavBar';
 import {MDBCard, MDBCardBody, MDBCardText, MDBCardTitle} from 'mdb-react-ui-kit';
 import {MDBBtn} from 'mdb-react-ui-kit';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 //import Card from 'react-bootstrap/Card';
 //import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
@@ -36,26 +42,38 @@ function Postings(){
         return postInfo.map((post) => {
             if(post.className === card.className){
                 return(
-                    <>
-                        <MDBCard>
-                            <MDBCardBody>
-                                <MDBCardTitle>{post.postings.posting1.job_title}</MDBCardTitle>
-                                <MDBCardText>{post.postings.posting1.is_GTA_Required ? "GTA is required" : "GTA is not required"}</MDBCardText>
-                            </MDBCardBody>
-                            <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting1}}}>
-                                <MDBBtn>Apply</MDBBtn>
-                            </Link>
-                        </MDBCard>
-                        <MDBCard>
-                            <MDBCardBody>
-                                <MDBCardTitle>{post.postings.posting2.job_title}</MDBCardTitle>
-                                <MDBCardText>{post.postings.posting2.is_GTA_Required ? "GTA is required" : "GTA is not required"}</MDBCardText>
-                            </MDBCardBody>
-                            <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting2}}}>
-                                <MDBBtn>Apply</MDBBtn>
-                            </Link>
-                        </MDBCard>
-                    </>
+                    <Box display='inline-block'>
+                        <Card>
+                            <CardContent>
+                                <Typography variant='h4' component='div'>
+                                    {post.postings.posting1.job_title}
+                                </Typography>
+                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    {post.postings.posting1.is_GTA_Required ? "GTA is required" : "GTA is not required"}
+                                </Typography>
+                                <CardActions>
+                                    <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting1}}}>
+                                        <Button>Apply</Button>
+                                    </Link>
+                                </CardActions>
+                            </CardContent>
+                        </Card>
+                        <Card>
+                            <CardContent>
+                                <Typography variant='h4' component='div'>
+                                    {post.postings.posting2.job_title}
+                                </Typography>
+                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                    {post.postings.posting2.is_GTA_Required ? "GTA is required" : "GTA is not required"}
+                                </Typography>
+                                <CardActions>
+                                    <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting2}}}>
+                                        <Button>Apply</Button>
+                                    </Link>
+                                </CardActions>
+                            </CardContent>
+                        </Card>
+                    </Box>
 
 
                 )
@@ -65,18 +83,19 @@ function Postings(){
     }
  
     return(
-        <div className='App'>
-            <div>
-                <NavBar />
+        <>
+            <div className='App'>
+                <div>
+                    <NavBar />
+                </div>
+                <h1> Postings </h1>
+                <h2>
+                    {`Classname: `+ card.className + ", Section ID: " + card.sectionID}
+                </h2>    
             </div>
-            <h1> Postings </h1>
-            <h2>
-                {`Classname: `+ card.className + ", Section ID: " + card.sectionID}
-            </h2>
             {postList()}
-            
-            
-        </div>
+        </>
+        
     );
 }
 export default Postings;

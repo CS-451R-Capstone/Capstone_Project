@@ -6,6 +6,7 @@ const express = require("express");
 const recordRoutes = express.Router();
  
 // This will help us connect to the database
+//
 const dbo = require("../db/connection");
 
 recordRoutes.route('/home').get((req, res) => {
@@ -29,10 +30,12 @@ recordRoutes.route('/postings').get((req, res) => {
             _id: 0, 
             className: 1,
             postings: 
-            {"posting1.is_GTA_Required": 1, 
+            {
+            "posting1.is_GTA_Required": 1, 
             "posting1.job_title": 1, 
             "posting2.is_GTA_Required": 1, 
-            "posting2.job_title": 1}
+            "posting2.job_title": 1
+            }
         }}]).toArray((err, result) => {
             if(err){
                 throw err;
