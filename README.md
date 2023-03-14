@@ -1,3 +1,31 @@
+# Step 1
+Without this the front-end won't display anything on the page. DO THIS FIRST!
+## Running the Backend Server
+
+### Available Scripts
+
+#### `npm run backend-server`
+You can see the responses for each database call on http://localhost:5000
+Both are GET methods for information on the home page and postings page on the front end
+##### To see the `/home` response
+http://localhost:5000/home
+##### To see the `/postings` response
+http://localhost:5000/postings
+
+#### You can also run `nodemon server.js` to get the same effect
+
+# Step 2
+
+## Running the front end
+
+### Available Scripts
+
+#### `npm start`
+Starts the front end project
+
+#### `npm run build` 
+Builds the app for production
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -70,5 +98,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 ## If concurrently is not recognized then run 'npm install -g concurrently'
-
-## 'npx json-server --watch db.json' To start file server.
