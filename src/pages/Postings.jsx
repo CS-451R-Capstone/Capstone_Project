@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import '../App.css';
 import NavBar from '../navigation/NavBar';
-import {MDBCard, MDBCardBody, MDBCardText, MDBCardTitle} from 'mdb-react-ui-kit';
-import {MDBBtn} from 'mdb-react-ui-kit';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -52,7 +50,11 @@ function Postings(){
                                     {post.postings.posting1.is_GTA_Required ? "GTA is required" : "GTA is not required"}
                                 </Typography>
                                 <CardActions>
-                                    <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting1}}}>
+                                    <Link to={{pathname: '/submission-portal', 
+                                    state: {
+                                        posting: post.postings.posting1,
+                                        className: card.className,
+                                        sectionID: card.sectionID}}}>
                                         <Button>Apply</Button>
                                     </Link>
                                 </CardActions>
@@ -67,7 +69,12 @@ function Postings(){
                                     {post.postings.posting2.is_GTA_Required ? "GTA is required" : "GTA is not required"}
                                 </Typography>
                                 <CardActions>
-                                    <Link to={{pathname: '/submission-portal', state: {posting: post.postings.posting2}}}>
+                                    <Link to={{pathname: '/submission-portal', 
+                                    state: {
+                                    posting: post.postings.posting2, 
+                                    className: card.className, 
+                                    sectionID: card.sectionID
+                                    }}}>
                                         <Button>Apply</Button>
                                     </Link>
                                 </CardActions>

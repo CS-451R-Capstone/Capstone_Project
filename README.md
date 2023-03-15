@@ -17,7 +17,7 @@ http://localhost:5000/postings
 # Step 2
 
 ## Running the front end
-Open another terminal and run npm start (both the terminal running the server and the terminal that's running the front end need to be open)
+Open another terminal and run npm start (both the terminal running the server and the terminal that's running the front end need to be running at the same time)
 ### Available Scripts
 
 #### `npm start`
