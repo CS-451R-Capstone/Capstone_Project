@@ -9,7 +9,7 @@ function Submission_Portal(){
     const location = useLocation();
     const posting = location.state?.posting;
     const className = location.state?.className;
-    const sectionID = location.state?.className;
+    const sectionID = location.state?.sectionID;
     //react hook to change the state of the file uploads
     const [fileUpload, setFileUpload] = useState(null);
     //function to add files

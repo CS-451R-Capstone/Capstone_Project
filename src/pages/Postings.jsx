@@ -7,8 +7,6 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-//import Card from 'react-bootstrap/Card';
-//import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
