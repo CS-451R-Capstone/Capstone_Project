@@ -12,10 +12,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "firebase": "^9.17.1",
-<<<<<<< HEAD
-=======
     "mangodb": "^1.0.0",
->>>>>>> MongoDBConnection
     "mdb-react-ui-kit": "^5.1.0",
     "mongodb": "^5.0.1",
     "react": "^18.2.0",
