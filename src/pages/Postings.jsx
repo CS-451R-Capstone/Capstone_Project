@@ -7,8 +7,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-//import Card from 'react-bootstrap/Card';
-//import Button from 'react-bootstrap/Button';
+import Grid from '@mui/material/Grid';
 import {Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -37,56 +36,63 @@ function Postings(){
 
     //function that returns a JSX element of the list of postings for that class
     function postList(){
-        return postInfo.map((post) => {
-            if(post.className === card.className){
-                return(
-                    <Box display='inline-block'>
-                        <Card>
-                            <CardContent>
-                                <Typography variant='h4' component='div'>
-                                    {post.postings[0].job_title}
-                                </Typography>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {post.postings[0].GTA_CERT ? "GTA is required" : "GTA is not required"}
-                                </Typography>
-                                <CardActions>
-                                    <Link to={{pathname: '/submission-portal', 
-                                    state: {
-                                        posting: post.postings[0],
-                                        className: card.className,
-                                        sectionID: card.sectionID}}}>
-                                        <Button>Apply</Button>
-                                    </Link>
-                                </CardActions>
-                            </CardContent>
-                        </Card>
-                        <Card>
-                            <CardContent>
-                                <Typography variant='h4' component='div'>
-                                    {post.postings[1].job_title}
-                                </Typography>
-                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {post.postings[1].GTA_CERT ? "GTA is required" : "GTA is not required"}
-                                </Typography>
-                                <CardActions>
-                                    <Link to={{pathname: '/submission-portal', 
-                                    state: {
-                                    posting: post.postings[1], 
-                                    className: card.className, 
-                                    sectionID: card.sectionID
-                                    }}}>
-                                        <Button>Apply</Button>
-                                    </Link>
-                                </CardActions>
-                            </CardContent>
-                        </Card>
-                    </Box>
+        return(
+            <Grid container spacing={2} direction="row" justifyContent='center' alignItems={'flex-start'}>
+                {
+                    postInfo.map((post) => {
+                        if(post.className === card.className){
+                            return(
+                                <Grid item xs={12} sm={6} md={3}>
+                                    <Box display='inline-block'>
+                                        <Card sx={{minWidth: 275}}>
+                                            <CardContent>
+                                                <Typography variant='h4' component='div'>
+                                                    {post.postings[0].job_title}
+                                                </Typography>
+                                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                                    {post.postings[0].GTA_CERT ? "GTA is required" : "GTA is not required"}
+                                                </Typography>
+                                                <CardActions>
+                                                    <Link to={{pathname: '/submission-portal', 
+                                                        state: {
+                                                        posting: post.postings[0],
+                                                        className: card.className,
+                                                        sectionID: card.sectionID}}}>
+                                                        <Button>Apply</Button>
+                                                    </Link>
+                                                </CardActions>
+                                            </CardContent>
+                                        </Card>
+                                        <Card>
+                                            <CardContent>
+                                                <Typography variant='h4' component='div'>
+                                                    {post.postings[1].job_title}
+                                                </Typography>
+                                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                                    {post.postings[1].GTA_CERT ? "GTA is required" : "GTA is not required"}
+                                                </Typography>
+                                                <CardActions>
+                                                    <Link to={{pathname: '/submission-portal', 
+                                                            state: {
+                                                            posting: post.postings[1], 
+                                                            className: card.className, 
+                                                            sectionID: card.sectionID}}}>
+                                                        <Button>Apply</Button>
+                                                    </Link>
+                                                </CardActions>
+                                            </CardContent>
+                                        </Card>
+                                    </Box>
 
+                                </Grid>
 
-                )
+                            )
+                        }
+                    })
+                }
 
-            }
-        })
+            </Grid>
+        )
     }
  
     return(
