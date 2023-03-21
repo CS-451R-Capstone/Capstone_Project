@@ -1,10 +1,16 @@
 import '../App.css';
 import NavBar from "../navigation/NavBar";
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import {useEffect, useState} from 'react';
+import {Link} from 'react-router-dom';
 
 function Home() {
-<<<<<<< Updated upstream
- 
-=======
   const [cardInfo, setCardInfo] = useState([]);
   useEffect(() => {
     async function getClasses(){
@@ -71,18 +77,18 @@ function Home() {
     })
   }
 
->>>>>>> Stashed changes
   return (
-    <div className="App">
-      <div>
-        <NavBar />
+    <>
+      <div className="App">
+        <div>
+          <NavBar />
+        </div>
       </div>
-      <input placeholder="Name..." 
-      />
-      <input type="number" 
-      placeholder="Age..."
-      />
-    </div>
+      {classList()}
+    
+    </>
+   
+
   );
 }
 
