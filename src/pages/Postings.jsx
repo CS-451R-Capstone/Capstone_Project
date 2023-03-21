@@ -7,6 +7,8 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+//import Card from 'react-bootstrap/Card';
+//import Button from 'react-bootstrap/Button';
 import {Link} from 'react-router-dom';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -42,15 +44,15 @@ function Postings(){
                         <Card>
                             <CardContent>
                                 <Typography variant='h4' component='div'>
-                                    {post.postings.posting1.job_title}
+                                    {post.postings[0].job_title}
                                 </Typography>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {post.postings.posting1.is_GTA_Required ? "GTA is required" : "GTA is not required"}
+                                    {post.postings[0].GTA_CERT ? "GTA is required" : "GTA is not required"}
                                 </Typography>
                                 <CardActions>
                                     <Link to={{pathname: '/submission-portal', 
                                     state: {
-                                        posting: post.postings.posting1,
+                                        posting: post.postings[0],
                                         className: card.className,
                                         sectionID: card.sectionID}}}>
                                         <Button>Apply</Button>
@@ -61,15 +63,15 @@ function Postings(){
                         <Card>
                             <CardContent>
                                 <Typography variant='h4' component='div'>
-                                    {post.postings.posting2.job_title}
+                                    {post.postings[1].job_title}
                                 </Typography>
                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                                    {post.postings.posting2.is_GTA_Required ? "GTA is required" : "GTA is not required"}
+                                    {post.postings[1].GTA_CERT ? "GTA is required" : "GTA is not required"}
                                 </Typography>
                                 <CardActions>
                                     <Link to={{pathname: '/submission-portal', 
                                     state: {
-                                    posting: post.postings.posting2, 
+                                    posting: post.postings[1], 
                                     className: card.className, 
                                     sectionID: card.sectionID
                                     }}}>

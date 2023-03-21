@@ -54,6 +54,25 @@ function Home() {
             </Box>
           </Grid>
         </Grid>
+        /*
+        <Box display='inline-block'>
+          <Card sx={{minWidth: 275}}>
+            <CardContent>
+              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                {`Section ID: `+card.sectionID}
+              </Typography>
+              <Typography variant="h5" component="div">
+                {card.className}
+              </Typography>
+              <CardActions>
+                <Link to={{pathname: '/postings', state: {card: card}}}>
+                  <Button size="small">See Postings</Button>
+                </Link>
+              </CardActions>
+            </CardContent>
+          </Card>
+        </Box>
+        */
       )
     })
   }
