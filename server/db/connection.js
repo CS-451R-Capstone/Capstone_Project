@@ -1,3 +1,5 @@
+// Module connection to mongoDB database.
+
 const { MongoClient } = require("mongodb");
 const Db = process.env.ATLAS_URI;
 const client = new MongoClient(Db, {
@@ -5,26 +7,29 @@ const client = new MongoClient(Db, {
   useUnifiedTopology: true,
 });
  
-async function connectToServer(){
-    try{
-        await client.connect();
-        let db = client.db('mydb');
-        console.log("Sucessfully connected to MongoDB");
-        return db;
-    }catch(err){
-        console.error(err.message)
-    }
-}
-async function closeServer(){
-    try{
-        await client.close();
-        console.log("Closing connection");
-    }catch(err){
-        console.error(err);
-    }
-}
- 
+// Our database connection
+let dbConnection;
+
 module.exports = {
-  connectToServer,
-  closeServer
+    //Establishes the connection to the mongodb server.
+    connectToServer: (callback) =>
+    {
+        client.connect(function (err,db)
+        {
+            if(err || !db) 
+            {
+                return callback(err);
+            }
+
+            dbConnection = db.db('mydb');
+            console.log('Succesfully connected to Mongodb');
+            return callback();
+        })
+    },
+
+    //Returns the connection
+    getDB: () =>
+    {
+        return dbConnection;
+    }
 };

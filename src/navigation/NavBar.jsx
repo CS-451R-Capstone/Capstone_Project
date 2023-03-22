@@ -16,9 +16,14 @@ function NavBar() {
                     <Link to='/my-account'>
                         <li><a>My Account</a></li>
                     </Link>
-                    <Link to='/submission-portal'>
+                    {
+                        /*
+                        <Link to='/submission-portal'>
                         <li><a>Submission Portal</a></li>
                     </Link>
+                        */
+                    }
+                    
                     <Link to='/'>
                         <li><a>Logout</a></li>
                     </Link>
