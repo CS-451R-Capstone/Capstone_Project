@@ -37,7 +37,6 @@ recordRoutes.route('/postings').get((req, res) => {
         if(err){
             throw err;
         }
-        console.log(result);
         res.json(result);
     });
 });
@@ -48,7 +47,7 @@ recordRoutes.route('/applicants').post(upload({createParentPath: true}),
     {
         dbo.getDB().collection('Classes').updateOne(
             {sectionID: req.body.Section, className: req.body.Class, postings: {$elemMatch: {job_title: req.body.Job}}},
-            {$push: {postings: {Applicants: req.files}} }
+            {$push: {'postings.$.Applicants': req.files} }
         )
 
         res.json({status: 'logged', message: 'logged'})
