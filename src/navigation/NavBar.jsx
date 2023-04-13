@@ -10,7 +10,7 @@ function NavBar() {
             <nav>
                 <div className="logo"> <img src={logo} alt="UMKC" /> </div>
                 <ul className="nav-links" style={{transform: open ? "translateX(0px)" : "" }}>
-                    <Link to='/home'>
+                    <Link to='/'>
                         <li><a>Home</a></li>
                     </Link>
                     <Link to='/my-account'>
@@ -19,11 +19,10 @@ function NavBar() {
                     {
                         /*
                         <Link to='/submission-portal'>
-                        <li><a>Submission Portal</a></li>
-                    </Link>
+                            <li><a>Submission Portal</a></li>
+                        </Link>
                         */
                     }
-                    
                     <Link to='/'>
                         <li><a>Logout</a></li>
                     </Link>
