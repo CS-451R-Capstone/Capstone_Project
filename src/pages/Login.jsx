@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import logo from '../UMKC_Logo.png';
 import {Link, useHistory} from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -43,13 +41,33 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
+/*
+    function requestLogin(userData){
+        const requestOptions = {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({email: userData.email, password: userData.password})
+
+        };
+        const response = fetch(`http://localhost:5000/login`, requestOptions);
+        if(!response.ok){
+            return false;
+        }
+        else if(response.ok){
+            return true;
+        }
+
+    }
+*/
 
     const handleSubmit = () => {
         const userData = {
             email: email,
             password: password
         };
-        console.log(userData);
+        //console.log(userData);
+        //const isLoggedIn = requestLogin(userData);
+        //This is probably where we need to make a request to login
         history.push({
             pathname: '/submission-portal',
             state: {
@@ -58,7 +76,10 @@ function Login(){
                 sectionID: sectionID
             }
         });
+    
 
+        
+        
     }
 
     return(
