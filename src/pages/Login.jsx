@@ -41,41 +41,49 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
-/*
-    function requestLogin(userData){
+
+    async function requestLogin(userData){
         const requestOptions = {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({email: userData.email, password: userData.password})
 
+
         };
-        const response = fetch(`http://localhost:5000/login`, requestOptions);
+        const response = await fetch(`http://localhost:5000/login`, requestOptions);
         if(!response.ok){
-            return false;
+            return false
         }
         else if(response.ok){
             return true;
         }
 
     }
-*/
+
 
     const handleSubmit = () => {
         const userData = {
             email: email,
             password: password
         };
-        //console.log(userData);
-        //const isLoggedIn = requestLogin(userData);
-        //This is probably where we need to make a request to login
-        history.push({
+
+        const isAuth = requestLogin(userData);
+        if(isAuth){
+          history.push({
             pathname: '/submission-portal',
             state: {
                 posting: posting,
                 className: className,
                 sectionID: sectionID
             }
-        });
+          });
+
+        }
+        else{
+          alert("login failed!");
+        }
+
+        
     
 
         
