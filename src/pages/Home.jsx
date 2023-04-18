@@ -10,6 +10,9 @@ import Typography from '@mui/material/Typography';
 import {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 
+
+
+
 function Home() {
   const [cardInfo, setCardInfo] = useState([]);
   useEffect(() => {
@@ -31,50 +34,43 @@ function Home() {
 
   //Link to source of style of code: https://mui.com/material-ui/react-card/
   function classList(){
-    return cardInfo.map((card) => {
+    //return cardInfo.map((card) => {
       return (
-        <Grid container spacing={2}>
-          <Grid item xs={4}>
-            <Box display='inline-block'>
-              <Card sx={{minWidth: 275}}>
-                <CardContent>
-                  <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                    {`Section ID: `+card.sectionID}
-                  </Typography>
-                  <Typography variant="h5" component="div">
-                    {card.className}
-                  </Typography>
-                  <CardActions>
-                    <Link to={{pathname: '/postings', state: {card: card}}}>
-                      <Button size="small">See Postings</Button>
-                    </Link>
-                  </CardActions>
-                </CardContent>
-              </Card>
-            </Box>
-          </Grid>
+        <Grid container spacing={2} 
+        direction="row" 
+        justifyContent='flex-start' 
+        alignItems='flex-start'>
+          {
+            cardInfo.map((card) => {
+              return(
+                <Grid item xs={12} sm={6} md={3}>
+                <Box display='inline-block'>
+                  <Card sx={{minWidth: 275}}>
+                    <CardContent>
+                      <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {`Section ID: `+card.sectionID}
+                      </Typography>
+                      <Typography variant="h5" component="div">
+                        {card.className}
+                      </Typography>
+                      <CardActions>
+                        <Link to={{pathname: '/postings', state: {card: card}}}>
+                          <Button size="small">See Postings</Button>
+                        </Link>
+                      </CardActions>
+                    </CardContent>
+                  </Card>
+                </Box>
+              </Grid>
+
+              )
+              
+
+            })
+          }
+          
         </Grid>
-        /*
-        <Box display='inline-block'>
-          <Card sx={{minWidth: 275}}>
-            <CardContent>
-              <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                {`Section ID: `+card.sectionID}
-              </Typography>
-              <Typography variant="h5" component="div">
-                {card.className}
-              </Typography>
-              <CardActions>
-                <Link to={{pathname: '/postings', state: {card: card}}}>
-                  <Button size="small">See Postings</Button>
-                </Link>
-              </CardActions>
-            </CardContent>
-          </Card>
-        </Box>
-        */
       )
-    })
   }
 
   return (

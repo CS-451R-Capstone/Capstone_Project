@@ -4,11 +4,96 @@ const express = require("express");
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const keys = require("../config/keys");
 const upload = require('express-fileupload');
+
+const User = require('../userModel/User');
+
+//load input validation
+const validateRegisterInput = require("../validation/register");
+const validateLoginInput = require("../validation/login");
+
  
 // This will help us connect to the database
 //
 const dbo = require("../db/connection");
+
+recordRoutes.route('/register').post((req, res) => {
+  const {errors, isValid} = validateRegisterInput(req.body);
+
+  if(!isValid){
+    return res.status(400).json(errors);
+  }
+  dbo.getDB().collection('Logins').findOne({email: req.body.email}).then(user => {
+    if(user){
+      return res.status(400).json({email: 'Email already exists'});
+    }
+    else{
+      const newUser = new User({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password,
+        isAdmin: req.body.isAdmin
+      })
+
+      bcrypt.genSalt(10, (err, salt) => {
+        bcrypt.hash(newUser.password, salt, (err, hash) => {
+          if(err) throw err;
+          newUser.password = hash;
+          dbo.getDB().collection('Logins').insertOne(newUser)
+          .then(user => res.json(user))
+          .catch(err => console.log(err));
+        });
+      });
+    }
+  });
+});
+
+
+recordRoutes.route('/login').post((req, res) => {
+    const { errors, isValid } = validateLoginInput(req.body);
+
+    // Check validation
+    if (!isValid) {
+      return res.status(400).json(errors);
+    }
+  
+    const email = req.body.email;
+    const password = req.body.password;
+
+    dbo.getDB().collection('Logins').findOne({email}).then(user => {
+      if(!user){
+        return res.status(404).json({emailnotfound: "Email not found"});
+      }
+      bcrypt.compare(password, user.password).then(isMatch => {
+        if(isMatch){
+          const payload = {
+            id: user.id,
+            name: user.name
+          };
+          jwt.sign(
+            payload,
+            keys.secretOrKey,
+            {
+              expiresIn: 31556926
+            },
+            (err, token) => {
+              res.json({
+                success: true,
+                token: "Bearer: " + token
+              });
+            }
+          );
+        }
+        else{
+          return res.status(400).json({passwordincorrect: "Password is incorrect"});
+        }
+      });
+    });
+});
+
 
 recordRoutes.route('/home').get((req, res) => {
     
@@ -37,7 +122,6 @@ recordRoutes.route('/postings').get((req, res) => {
         if(err){
             throw err;
         }
-        console.log(result);
         res.json(result);
     });
 });
@@ -48,7 +132,7 @@ recordRoutes.route('/applicants').post(upload({createParentPath: true}),
     {
         dbo.getDB().collection('Classes').updateOne(
             {sectionID: req.body.Section, className: req.body.Class, postings: {$elemMatch: {job_title: req.body.Job}}},
-            {$push: {postings: {Applicants: req.files}} }
+            {$push: {'postings.$.Applicants': req.files} }
         )
 
         res.json({status: 'logged', message: 'logged'})
