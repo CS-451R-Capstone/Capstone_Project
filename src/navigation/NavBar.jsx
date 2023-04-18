@@ -1,6 +1,8 @@
 import React, {useState} from "react"
 import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+import Breadcrumbs from "../Components/Breadcrumbs";
 
 function NavBar() {
     const [open, setOpen] = useState(false);
@@ -27,6 +29,7 @@ function NavBar() {
                 </ul>
                 <i onClick={() => setOpen(!open)} class="fa-solid fa-bars burger" />
             </nav>
+            <Breadcrumbs />
         </div>
     )
 }
