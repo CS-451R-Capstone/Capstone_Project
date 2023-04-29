@@ -51,7 +51,7 @@ function Login(){
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-      if(auth.isAuthenticated){
+      //if(auth.isAuthenticated){
         history.push({
           pathname: '/submission-portal',
           state: {
@@ -59,14 +59,14 @@ function Login(){
               className: className,
               sectionID: sectionID
           }
-        });
+      //  });
         
-      }
-      if(Errors){
-        setErrors(Errors);
-      }
+     // }
+     // if(Errors){
+       // setErrors(Errors);
+     // }
     })
-
+  });
 
     const handleSubmit = () => {
         const userData = {
