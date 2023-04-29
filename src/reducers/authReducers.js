@@ -1,5 +1,4 @@
 import {
-    IS_CURRENT_USER_ADMIN,
     SET_CURRENT_USER,
     USER_LOADING
 } from "../actions/types";
@@ -8,8 +7,7 @@ const isEmpty = require("is-empty");
 const initialState = {
     isAuthenticated: false,
     user: {},
-    loading: false,
-    isAdmin: false
+    loading: false
 };
 
 export default function(state = initialState, action) {
@@ -18,17 +16,13 @@ export default function(state = initialState, action) {
             return{
                 ...state,
                 isAuthenticated: !isEmpty(action.payload),
-                user: action.payload
+                user: action.payload,
             };
-        case IS_CURRENT_USER_ADMIN:
-            return{
-                ...state,
-                isAdmin: true
-            }
         case USER_LOADING:
             return{
                 ...state,
                 loading: true
+
             };
         default:
             return state;

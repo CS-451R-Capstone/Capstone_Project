@@ -33,7 +33,6 @@ export const loginUser = userData => dispatch => {
         // Decode token to get user data
         const decoded = jwt_decode(token);
         //check if the current user is an admin
-        //dispatch(isCurrentUserAdmin(userData));
         // Set current user
         dispatch(setCurrentUser(decoded));
         console.log("user logged in");
@@ -45,15 +44,9 @@ export const loginUser = userData => dispatch => {
           payload: err.response.data
         })
       );
+    
   };
-  /*
-  export const isCurrentUserAdmin = userData => {
-    axios.get("http://localhost:5000/users").then(res => {
-      console.log(res.data);
-    }).catch(err => console.log(err));
-
-  }
-  */
+  
   // Set logged in user
   export const setCurrentUser = decoded => {
     return {
@@ -72,6 +65,7 @@ export const loginUser = userData => dispatch => {
     // Remove auth header for future requests
     setAuthToken(false);
     // Set current user to empty object {} which will set isAuthenticated to false
+    console.log("user logged out");
     dispatch(setCurrentUser({}));
   };
 

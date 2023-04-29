@@ -40,6 +40,8 @@ function Login(){
 
     //state for authentication (comes from Redux)
     const auth = useSelector(state => state.auth);
+    //state for if the user is an admin
+    //const isAdmin = useSelector(state => state.auth.isAdmin);
     //state for errors if incorrect email/password is entered (comes from Redux)
     const Errors = useSelector(state => state.errors);
 
@@ -56,7 +58,6 @@ function Login(){
 
     useEffect(() => {
       if(auth.isAuthenticated){
-        //console.log(auth.user);
         history.push({
           pathname: '/submission-portal',
           state: {
@@ -66,11 +67,12 @@ function Login(){
           }
         });
       }
+      // Enter another condition here where user is authenticated BUT the user is an admin, so that the admin view is pulled up
      else if(Errors){
       setErrors(Errors);
 
      }
-    }, [auth, Errors]);
+    }, [auth.isAuthenticated, auth.user.name, Errors, history, posting, className, sectionID]);
     
 
     const handleSubmit = () => {

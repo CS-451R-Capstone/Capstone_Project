@@ -1,13 +1,15 @@
 import React, {useState} from "react"
 import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
-import { useDispatch } from "react-redux";
 import { logoutUser } from "../actions/authActions";
+import { useDispatch } from "react-redux";
 
 function NavBar() {
     const [open, setOpen] = useState(false);
 
     const dispatch = useDispatch();
+
+
 
     return(
         <div>
