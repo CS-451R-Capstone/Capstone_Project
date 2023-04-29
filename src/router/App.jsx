@@ -6,10 +6,15 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Submission_Portal from '../pages/Submission_Portal';
 import MyAccount from '../pages/MyAccount';
 import Postings from '../pages/Postings';
+
+
+
 //import SampleLogin from '../pages/SampleLogin';
+
+
 function App() {
   return (
-    <Router>
+      <Router>
       <div className="App">
         <div className='content'>
           <Switch>
@@ -36,6 +41,7 @@ function App() {
 
 
     </Router>
+    
    
   );
 }

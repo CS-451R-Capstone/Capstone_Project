@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginUser} from '../actions/authActions';
 import { useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,6 +13,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+//import { IsEmptyObj } from '@reduxjs/toolkit/dist/tsHelpers';
 
 function Copyright(props) {
     return (
@@ -37,28 +40,32 @@ function Login(){
     const className = location.state?.className;
     const sectionID = location.state?.sectionID;
 
+    const auth = useSelector(state => state.auth);
+    const Errors = useSelector(state => state.errors);
+
+    const dispatch = useDispatch();
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
 
-    async function requestLogin(userData){
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email: userData.email, password: userData.password})
-
-
-        };
-        const response = await fetch(`http://localhost:5000/login`, requestOptions);
-        if(!response.ok){
-            return false
-        }
-        else if(response.ok){
-            return true;
-        }
-
-    }
+    useEffect(() => {
+      if(auth.isAuthenticated){
+        history.push({
+          pathname: '/submission-portal',
+          state: {
+              posting: posting,
+              className: className,
+              sectionID: sectionID
+          }
+        });
+        
+      }
+      if(Errors){
+        setErrors(Errors);
+      }
+    })
 
 
     const handleSubmit = () => {
@@ -67,27 +74,7 @@ function Login(){
             password: password
         };
 
-        const isAuth = requestLogin(userData);
-        if(isAuth){
-          history.push({
-            pathname: '/submission-portal',
-            state: {
-                posting: posting,
-                className: className,
-                sectionID: sectionID
-            }
-          });
-
-        }
-        else{
-          alert("login failed!");
-        }
-
-        
-    
-
-        
-        
+        dispatch(loginUser(userData)); 
     }
 
     return(
@@ -154,4 +141,5 @@ function Login(){
     </ThemeProvider>
     )
 }
+
 export default Login;

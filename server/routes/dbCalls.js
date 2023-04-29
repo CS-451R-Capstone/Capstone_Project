@@ -94,6 +94,15 @@ recordRoutes.route('/login').post((req, res) => {
     });
 });
 
+recordRoutes.route('/users').get((req, res) => {
+  dbo.getDB().collection('Logins').aggregate([{$project: {_id: 0, name: 1, email: 1, isAdmin: 1}}]).toArray((err, result) => {
+    if(err){
+      throw err;
+    }
+    res.json(result);
+  });
+});
+
 
 recordRoutes.route('/home').get((req, res) => {
     
