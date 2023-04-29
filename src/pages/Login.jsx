@@ -8,12 +8,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-//import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-//import { IsEmptyObj } from '@reduxjs/toolkit/dist/tsHelpers';
 
 function Copyright(props) {
     return (
@@ -40,8 +38,12 @@ function Login(){
     const className = location.state?.className;
     const sectionID = location.state?.sectionID;
 
+    //state for authentication (comes from Redux)
     const auth = useSelector(state => state.auth);
+    //state for errors if incorrect email/password is entered (comes from Redux)
     const Errors = useSelector(state => state.errors);
+
+    //dispatches action (logged in, logged out, set current user, etc)
 
     const dispatch = useDispatch();
 
@@ -50,8 +52,11 @@ function Login(){
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
 
+    
+
     useEffect(() => {
-      //if(auth.isAuthenticated){
+      if(auth.isAuthenticated){
+        //console.log(auth.user);
         history.push({
           pathname: '/submission-portal',
           state: {
@@ -59,22 +64,23 @@ function Login(){
               className: className,
               sectionID: sectionID
           }
-      //  });
-        
-     // }
-     // if(Errors){
-       // setErrors(Errors);
-     // }
-    })
-  });
+        });
+      }
+     else if(Errors){
+      setErrors(Errors);
+
+     }
+    }, [auth, Errors]);
+    
 
     const handleSubmit = () => {
         const userData = {
             email: email,
             password: password
         };
+        //when someone clicks sign in, this action is fired and the payload is what the user entered
+        dispatch(loginUser(userData, dispatch));
 
-        dispatch(loginUser(userData)); 
     }
 
     return(
@@ -96,7 +102,7 @@ function Login(){
             <TextField
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            error={errors.email}
+            error={errors.email || errors.emailnotfound}
             onError={(event) => setErrors({...errors, [event.target.name]: event.target.error})}
               margin="normal"
               required
@@ -107,10 +113,13 @@ function Login(){
               autoComplete="email"
               autoFocus
             />
+            <span style={{color: 'red'}}>
+              {errors.email || errors.emailnotfound}
+            </span>
             <TextField
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            error={errors.password}
+            error={errors.password || errors.passwordincorrect}
             onError={(event) => setErrors({...errors, [event.target.name]: event.target.error})}
               margin="normal"
               required
@@ -121,6 +130,10 @@ function Login(){
               id="password"
               autoComplete="current-password"
             />
+            <span style={{color: 'red'}}>
+              {errors.password || errors.passwordincorrect}
+            </span>
+            <br></br>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -139,7 +152,7 @@ function Login(){
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-    )
+  )
 }
 
 export default Login;

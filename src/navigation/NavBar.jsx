@@ -1,9 +1,13 @@
 import React, {useState} from "react"
 import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { logoutUser } from "../actions/authActions";
 
 function NavBar() {
     const [open, setOpen] = useState(false);
+
+    const dispatch = useDispatch();
 
     return(
         <div>
@@ -16,15 +20,8 @@ function NavBar() {
                     <Link to='/my-account'>
                         <li><a>My Account</a></li>
                     </Link>
-                    {
-                        /*
-                        <Link to='/submission-portal'>
-                            <li><a>Submission Portal</a></li>
-                        </Link>
-                        */
-                    }
                     <Link to='/'>
-                        <li><a>Logout</a></li>
+                        <li onClick={dispatch(logoutUser(dispatch))}><a>Logout</a></li>
                     </Link>
                     
                     

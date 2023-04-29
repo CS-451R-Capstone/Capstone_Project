@@ -10,8 +10,8 @@ import {
 
 export const registerUser = (userData, history) => dispatch => {
     axios
-      .post("/register", userData)
-      .then(res => history.push("/login")) // re-direct to login on successful register
+      .post("http://localhost:5000/register", userData)
+      .then(res => history.push("http://localhost:5000/login")) // re-direct to login on successful register
       .catch(err =>
         dispatch({
           type: GET_ERRORS,
@@ -23,7 +23,7 @@ export const registerUser = (userData, history) => dispatch => {
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
-      .post("/login", userData)
+      .post("http://localhost:5000/login", userData)
       .then(res => {
         // Save to localStorage// Set token to localStorage
         const { token } = res.data;
@@ -32,8 +32,12 @@ export const loginUser = userData => dispatch => {
         setAuthToken(token);
         // Decode token to get user data
         const decoded = jwt_decode(token);
+        //check if the current user is an admin
+        //dispatch(isCurrentUserAdmin(userData));
         // Set current user
         dispatch(setCurrentUser(decoded));
+        console.log("user logged in");
+        //console.log(userData);
       })
       .catch(err =>
         dispatch({
@@ -41,7 +45,16 @@ export const loginUser = userData => dispatch => {
           payload: err.response.data
         })
       );
-  };// Set logged in user
+  };
+  /*
+  export const isCurrentUserAdmin = userData => {
+    axios.get("http://localhost:5000/users").then(res => {
+      console.log(res.data);
+    }).catch(err => console.log(err));
+
+  }
+  */
+  // Set logged in user
   export const setCurrentUser = decoded => {
     return {
       type: SET_CURRENT_USER,
