@@ -3,29 +3,19 @@ import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
 import { logoutUser } from "../actions/authActions";
 import { useDispatch } from "react-redux";
-<<<<<<< Updated upstream
-=======
 import { useCallback } from "react";
 
 
->>>>>>> Stashed changes
 
 function NavBar() {
     const [open, setOpen] = useState(false);
     const dispatch = useDispatch();
 
-<<<<<<< Updated upstream
-    const dispatch = useDispatch();
-
-
-
-=======
     const Logout = useCallback(() =>
     {
         dispatch(logoutUser())
     }, [dispatch])
     
->>>>>>> Stashed changes
     return(
         <div>
             <nav>
@@ -38,11 +28,7 @@ function NavBar() {
                         <li><a>My Account</a></li>
                     </Link>
                     <Link to='/'>
-<<<<<<< Updated upstream
-                        
-=======
                         <li onClick={Logout}><a>Logout </a></li>
->>>>>>> Stashed changes
                     </Link>
                     
                     
