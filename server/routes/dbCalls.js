@@ -135,13 +135,36 @@ recordRoutes.route('/postings').get((req, res) => {
     });
 });
 
+recordRoutes.route('/user_applications').get((req, res) => 
+{
+  dbo.getDB().collection('Classes').aggregate([
+  {
+    $project: {
+      _id: 0,
+      className: 1,
+      postings:
+      {
+        job_title: 1,
+        GTA_CERT: 1,
+        Applicants: 1
+      }
+    }, 
+  }]).toArray((err, result) => {
+    if(err){
+      throw err;
+    }
+    res.json(result);
+  })
+}
+);
+
 // Accepts file from front end and uploads to database.
 recordRoutes.route('/applicants').post(upload({createParentPath: true}),
     (req, res) => 
     {
         dbo.getDB().collection('Classes').updateOne(
             {sectionID: req.body.Section, className: req.body.Class, postings: {$elemMatch: {job_title: req.body.Job}}},
-            {$push: {'postings.$.Applicants': req.files} }
+            {$push: {'postings.$.Applicants': [req.files, req.body.Applicant]}}
         )
 
         res.json({status: 'logged', message: 'logged'})
