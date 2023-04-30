@@ -23,7 +23,7 @@ function NavBar() {
                         <li><a>My Account</a></li>
                     </Link>
                     <Link to='/'>
-                        <li onClick={dispatch(logoutUser(dispatch))}><a>Logout</a></li>
+                        
                     </Link>
                     
                     

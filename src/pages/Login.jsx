@@ -12,6 +12,7 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import store from "../store"
 
 function Copyright(props) {
     return (
@@ -81,8 +82,8 @@ function Login(){
             password: password
         };
         //when someone clicks sign in, this action is fired and the payload is what the user entered
-        dispatch(loginUser(userData, dispatch));
-
+        store.dispatch(loginUser(userData, dispatch));
+        
     }
 
     return(
