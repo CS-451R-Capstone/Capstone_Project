@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import {Link, useHistory} from 'react-router-dom'
+import {Link, useHistory} from 'react-router-dom';
+import {useDispatch, useSelector} from 'react-redux';
+import {loginUser} from '../actions/authActions';
 import { useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
-//import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
@@ -37,57 +38,51 @@ function Login(){
     const className = location.state?.className;
     const sectionID = location.state?.sectionID;
 
+    //state for authentication (comes from Redux)
+    const auth = useSelector(state => state.auth);
+    //state for if the user is an admin
+    //const isAdmin = useSelector(state => state.auth.isAdmin);
+    //state for errors if incorrect email/password is entered (comes from Redux)
+    const Errors = useSelector(state => state.errors);
+
+    //dispatches action (logged in, logged out, set current user, etc)
+
+    const dispatch = useDispatch();
+
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
 
-    async function requestLogin(userData){
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({email: userData.email, password: userData.password})
+    
 
+    useEffect(() => {
+      if(auth.isAuthenticated){
+        history.push({
+          pathname: '/submission-portal',
+          state: {
+              posting: posting,
+              className: className,
+              sectionID: sectionID
+          }
+        });
+      }
+      // Enter another condition here where user is authenticated BUT the user is an admin, so that the admin view is pulled up
+     else if(Errors){
+      setErrors(Errors);
 
-        };
-        const response = await fetch(`http://localhost:5000/login`, requestOptions);
-        if(!response.ok){
-            return false
-        }
-        else if(response.ok){
-            return true;
-        }
-
-    }
-
+     }
+    }, [auth.isAuthenticated, auth.user.name, Errors, history, posting, className, sectionID]);
+    
 
     const handleSubmit = () => {
         const userData = {
             email: email,
             password: password
         };
+        //when someone clicks sign in, this action is fired and the payload is what the user entered
+        dispatch(loginUser(userData, dispatch));
 
-        const isAuth = requestLogin(userData);
-        if(isAuth){
-          history.push({
-            pathname: '/submission-portal',
-            state: {
-                posting: posting,
-                className: className,
-                sectionID: sectionID
-            }
-          });
-
-        }
-        else{
-          alert("login failed!");
-        }
-
-        
-    
-
-        
-        
     }
 
     return(
@@ -109,7 +104,7 @@ function Login(){
             <TextField
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            error={errors.email}
+            error={errors.email || errors.emailnotfound}
             onError={(event) => setErrors({...errors, [event.target.name]: event.target.error})}
               margin="normal"
               required
@@ -120,10 +115,13 @@ function Login(){
               autoComplete="email"
               autoFocus
             />
+            <span style={{color: 'red'}}>
+              {errors.email || errors.emailnotfound}
+            </span>
             <TextField
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            error={errors.password}
+            error={errors.password || errors.passwordincorrect}
             onError={(event) => setErrors({...errors, [event.target.name]: event.target.error})}
               margin="normal"
               required
@@ -134,6 +132,10 @@ function Login(){
               id="password"
               autoComplete="current-password"
             />
+            <span style={{color: 'red'}}>
+              {errors.password || errors.passwordincorrect}
+            </span>
+            <br></br>
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label="Remember me"
@@ -152,6 +154,7 @@ function Login(){
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-    )
+  )
 }
+
 export default Login;
