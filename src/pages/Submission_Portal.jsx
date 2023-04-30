@@ -2,6 +2,7 @@ import '../App.css';
 import {useState} from 'react';
 import NavBar from '../navigation/NavBar';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
