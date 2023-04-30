@@ -58,7 +58,7 @@ function Login(){
     
 
     useEffect(() => {
-      if(auth.isAuthenticated){
+      if(auth.isAuthenticated && posting != null && className != null && sectionID != null){
         history.push({
           pathname: '/submission-portal',
           state: {
@@ -67,6 +67,9 @@ function Login(){
               sectionID: sectionID
           }
         });
+      }
+      else if(auth.isAuthenticated){
+        history.push('/');
       }
       // Enter another condition here where user is authenticated BUT the user is an admin, so that the admin view is pulled up
      else if(Errors){

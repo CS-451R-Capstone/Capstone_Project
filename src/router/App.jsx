@@ -40,8 +40,9 @@ function App() {
               <Route exact path='/' component={Home} />
               <Route exact path='/postings' component={Postings}/>
               <Route exact path='/login' component={Login} />
-              <Route exact path='/submission-portal' component={Submission_Portal}/>
               <Route exact path='/my-account' component={MyAccount}/>
+              <Route exact path='/submission-portal' component={Submission_Portal}/>
+              
             </Switch>
 
           </div>

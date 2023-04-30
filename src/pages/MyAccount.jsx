@@ -12,6 +12,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import store from "../store"
 import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -25,7 +26,11 @@ function createData(name, calories, fat, carbs, protein) {
 
   function MyAccount(){
     const isAuthenticated = store.getState().auth.isAuthenticated;
+    //const user = store.getState.auth.user.name;
     const history = useHistory();
+
+   // const [jobsApplied, setJobsApplied] = useState([]);
+   // const [allJobs, setAllJobs] = useState([]);
 
     const RedirectToLogin = () => {
         if(!isAuthenticated){
@@ -35,7 +40,7 @@ function createData(name, calories, fat, carbs, protein) {
 
     };
 
-    if(isAuthenticated){
+
         return(
             <div className='App'>
                 <div>
@@ -77,15 +82,6 @@ function createData(name, calories, fat, carbs, protein) {
             </div>
             
         );
-
-    }
-    /*
-    else if(!isAuthenticated){
-        return(
-            <Redirect to={{pathname: '/login', state: {posting, className, sectionID}}}/>
-        )
-    }
-    */
 
 }
 export default MyAccount;
