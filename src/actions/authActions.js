@@ -33,9 +33,10 @@ export const loginUser = userData => dispatch => {
         setAuthToken(token);
         // Decode token to get user data
         const decoded = jwt_decode(token);
+        const email = userData.email;
         //check if the current user is an admin
         // Set current user
-        dispatch(setCurrentUser(decoded));
+        dispatch(setCurrentUser({decoded, email}));
         console.log("user logged in");
         //console.log(userData);
       })
