@@ -3,14 +3,19 @@ import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
 import { logoutUser } from "../actions/authActions";
 import { useDispatch } from "react-redux";
+import { useCallback } from "react";
+
+
 
 function NavBar() {
     const [open, setOpen] = useState(false);
-
     const dispatch = useDispatch();
 
-
-
+    const Logout = useCallback(() =>
+    {
+        dispatch(logoutUser())
+    }, [dispatch])
+    
     return(
         <div>
             <nav>
@@ -23,7 +28,7 @@ function NavBar() {
                         <li><a>My Account</a></li>
                     </Link>
                     <Link to='/'>
-                        
+                        <li onClick={Logout}><a>Logout </a></li>
                     </Link>
                     
                     
