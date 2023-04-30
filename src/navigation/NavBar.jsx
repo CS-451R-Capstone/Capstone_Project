@@ -8,7 +8,6 @@ import store from '../store';
 
 function NavBar() {
     const [open, setOpen] = useState(false);
-
     const dispatch = useDispatch();
 
 

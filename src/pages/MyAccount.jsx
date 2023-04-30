@@ -24,6 +24,7 @@ function createData(name, calories, fat, carbs, protein) {
 
   ];
 
+
   function MyAccount(){
     const isAuthenticated = store.getState().auth.isAuthenticated;
     //const user = store.getState.auth.user.name;
@@ -36,8 +37,6 @@ function createData(name, calories, fat, carbs, protein) {
         if(!isAuthenticated){
             history.push('/login');
         }
-
-
     };
 
 
