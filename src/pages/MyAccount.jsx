@@ -10,7 +10,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+<<<<<<< HEAD
 import store from "../store"
+=======
+>>>>>>> 6e76fa77f6bd8f587fdd5d0b565398cc37821fe7
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
@@ -22,7 +25,10 @@ function createData(name, calories, fat, carbs, protein) {
   ];
 
 function MyAccount(){
+<<<<<<< HEAD
     console.log(store.getState())
+=======
+>>>>>>> 6e76fa77f6bd8f587fdd5d0b565398cc37821fe7
     return(
         <div className='App'>
             <div>
@@ -31,8 +37,13 @@ function MyAccount(){
             <h1>
                 My Account Page
             </h1>
+<<<<<<< HEAD
             <p>Name: {store.getState().auth.user.decoded.name}</p>
             <p>Email:{store.getState().auth.user.email}</p>
+=======
+            <p>Name: </p>
+            <p>Email: </p>
+>>>>>>> 6e76fa77f6bd8f587fdd5d0b565398cc37821fe7
             <h2>Jobs applied to </h2>
 
             <TableContainer component={Paper}>
@@ -67,4 +78,7 @@ function MyAccount(){
 }
 export default MyAccount;
 
+<<<<<<< HEAD
 // store.getState().auth.user.name
+=======
+>>>>>>> 6e76fa77f6bd8f587fdd5d0b565398cc37821fe7
