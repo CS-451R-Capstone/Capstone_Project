@@ -135,29 +135,18 @@ recordRoutes.route('/postings').get((req, res) => {
     });
 });
 
-recordRoutes.route('/user_applications').get((req, res) => 
-{
-  dbo.getDB().collection('Classes').aggregate([
-  {
-    $project: {
-      _id: 0,
-      className: 1,
-      postings:
-      {
-        job_title: 1,
-        GTA_CERT: 1,
-        "Applicants.applicant": 1
-
+recordRoutes.route('/user_applications').post((req, res) => {
+  dbo.getDB().collection('Classes').find(
+    {
+      'postings.Applicants': {$elemMatch: {applicant: req.body.Applicant}}
+    }, {className: true, sectionID: true, postings: {job_title: true, GTA_CERT: true}}).toArray((err, result) => {
+      if(err){
+        throw err;
       }
-    }, 
-  }]).toArray((err, result) => {
-    if(err){
-      throw err;
-    }
-    res.json(result);
-  })
-}
-);
+      console.log(result);
+      res.json(result);
+    })
+})
 
 // Accepts file from front end and uploads to database.
 recordRoutes.route('/applicants').post(upload({createParentPath: true}),

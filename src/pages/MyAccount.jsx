@@ -14,29 +14,45 @@ import store from "../store"
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(className, posting, sectionID) {
+    return { className, posting, sectionID};
 };
 
   const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    createData('Frozen yoghurt', 159, 6.0),
+    createData('Ice cream sandwich', 237, 9.0)
 
   ];
 
 
   function MyAccount(){
-    const isAuthenticated = store.getState().auth.isAuthenticated;
-    const history = useHistory();
+    const [allJobs, setallJobs] = useState([]);
+    const user = store.getState().auth.user.decoded.name;
 
-    const RedirectToLogin = () => {
-        if(!isAuthenticated){
-            history.push('/login');
+
+
+
+    useEffect(() => {
+        async function getAllJobs() {
+            const response = await fetch('http://localhost:5000/user_applications');
+            if(response.ok){
+                //const message = `An error occurred: ${response.statusText}`;
+                //window.alert(message);
+                let allJobs = await response.json()
+                setallJobs(allJobs);
+                return;
+            }
+              
         }
-    };
+        getAllJobs();
+        console.log(allJobs);
+    
+        return;
+
+    }, [allJobs.length]);
 
 
-        return(
+    return(
             <div className='App'>
                 <div>
                     <NavBar/>
@@ -66,7 +82,7 @@ function createData(name, calories, fat, carbs, protein) {
                         <TableCell component="th" scope="row">
                             {row.name}
                         </TableCell>
-                        <TableCell align="center"><Button onClick={RedirectToLogin} variant="contained">Edit</Button></TableCell>
+                        <TableCell align="center"><Button variant="contained">Edit</Button></TableCell>
     
                         </TableRow>
                     ))}
