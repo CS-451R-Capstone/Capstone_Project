@@ -14,45 +14,44 @@ import store from "../store"
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
+
+
 function createData(className, posting, sectionID) {
     return { className, posting, sectionID};
 };
 
   const rows = [
-    createData('Frozen yoghurt', 159, 6.0),
-    createData('Ice cream sandwich', 237, 9.0)
+    createData('tony', 159, 6.0, 24, 4.0),
+    createData('dally', 237, 9.0, 37, 4.3),
 
   ];
-
-
   function MyAccount(){
-    const [allJobs, setallJobs] = useState([]);
-    const user = store.getState().auth.user.decoded.name;
+    const isAuthenticated = store.getState().auth.isAuthenticated;
+    const history = useHistory();
+    const [postInfo, setPostInfo] = useState([]);
 
-
-
-
+    
     useEffect(() => {
-        async function getAllJobs() {
-            const response = await fetch('http://localhost:5000/user_applications');
-            if(response.ok){
+        async function getPostings(){
+            const ctrl = new AbortController();
+            setTimeout(() => ctrl.abort(), 5000);
+            const response = fetch(`http://localhost:5000/user_applications?user=${encodeURIComponent(store.getState().auth.user.decoded.name)}`,{method: "GET"})
                 //const message = `An error occurred: ${response.statusText}`;
                 //window.alert(message);
-                let allJobs = await response.json()
-                setallJobs(allJobs);
-                return;
-            }
-              
+                let postInfo = (await response).json();
+                setPostInfo(postInfo);
+                console.log(postInfo);
         }
-        getAllJobs();
-        console.log(allJobs);
-    
+        getPostings();
         return;
-
-    }, [allJobs.length]);
-
-
-    return(
+    }, [postInfo.length])
+    
+    const RedirectToLogin = () => {
+        if(!isAuthenticated){
+            history.push('/login');
+        }
+    };
+        return(
             <div className='App'>
                 <div>
                     <NavBar/>
