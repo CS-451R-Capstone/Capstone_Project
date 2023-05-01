@@ -42,8 +42,6 @@ function createData(name, calories, fat, carbs, protein) {
                 <h1>
                     My Account Page
                 </h1>
-                <p>Name: {store.getState().auth.user.name}</p>
-                <p>Email: </p>
                 <p>Name: {store.getState().auth.user.decoded.name}</p>
                 <p>Email: {store.getState().auth.user.email}</p>
                 <h2>Jobs applied to </h2>
