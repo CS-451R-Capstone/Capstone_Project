@@ -38,7 +38,11 @@ function createData(name, calories, fat, carbs, protein) {
             history.push('/login');
         }
     };
+<<<<<<< Updated upstream
 
+=======
+    console.log(store.getState());
+>>>>>>> Stashed changes
 
         return(
             <div className='App'>
@@ -48,8 +52,13 @@ function createData(name, calories, fat, carbs, protein) {
                 <h1>
                     My Account Page
                 </h1>
+<<<<<<< Updated upstream
                 <p>Name: {store.getState().auth.user.name}</p>
                 <p>Email: </p>
+=======
+                <p>Name: {store.getState().auth.user.decoded.name}</p>
+                <p>Email: {store.getState().auth.user.email}</p>
+>>>>>>> Stashed changes
                 <h2>Jobs applied to </h2>
     
                 <TableContainer component={Paper}>

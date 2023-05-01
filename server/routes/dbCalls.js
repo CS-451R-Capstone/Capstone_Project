@@ -164,7 +164,11 @@ recordRoutes.route('/applicants').post(upload({createParentPath: true}),
     {
         dbo.getDB().collection('Classes').updateOne(
             {sectionID: req.body.Section, className: req.body.Class, postings: {$elemMatch: {job_title: req.body.Job}}},
+<<<<<<< Updated upstream
             {$push: {'postings.$.Applicants': [req.files, req.body.Applicant]}}
+=======
+            {$push: {'postings.$.Applicants': {resume: req.files, applicant: req.body.Applicant}}}
+>>>>>>> Stashed changes
         )
 
         res.json({status: 'logged', message: 'logged'})
