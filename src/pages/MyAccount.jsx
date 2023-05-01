@@ -27,23 +27,13 @@ function createData(name, calories, fat, carbs, protein) {
 
   function MyAccount(){
     const isAuthenticated = store.getState().auth.isAuthenticated;
-    //const user = store.getState.auth.user.name;
     const history = useHistory();
-
-   // const [jobsApplied, setJobsApplied] = useState([]);
-   // const [allJobs, setAllJobs] = useState([]);
 
     const RedirectToLogin = () => {
         if(!isAuthenticated){
             history.push('/login');
         }
     };
-<<<<<<< Updated upstream
-
-=======
-    console.log(store.getState());
->>>>>>> Stashed changes
-
         return(
             <div className='App'>
                 <div>
@@ -52,13 +42,10 @@ function createData(name, calories, fat, carbs, protein) {
                 <h1>
                     My Account Page
                 </h1>
-<<<<<<< Updated upstream
                 <p>Name: {store.getState().auth.user.name}</p>
                 <p>Email: </p>
-=======
                 <p>Name: {store.getState().auth.user.decoded.name}</p>
                 <p>Email: {store.getState().auth.user.email}</p>
->>>>>>> Stashed changes
                 <h2>Jobs applied to </h2>
     
                 <TableContainer component={Paper}>
@@ -93,5 +80,3 @@ function createData(name, calories, fat, carbs, protein) {
 
 }
 export default MyAccount;
-
-// store.getState().auth.user.name
