@@ -146,7 +146,8 @@ recordRoutes.route('/user_applications').get((req, res) =>
       {
         job_title: 1,
         GTA_CERT: 1,
-        Applicants: 1
+        "Applicants.applicant": 1
+
       }
     }, 
   }]).toArray((err, result) => {

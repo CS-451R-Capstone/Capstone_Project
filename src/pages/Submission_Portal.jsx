@@ -15,7 +15,7 @@ function Submission_Portal(){
     //react hook to change the state of the file uploads
     const [fileUpload, setFileUpload] = useState(null);
    
-    const user = store.getState().auth.user.name;
+    const user = store.getState().auth.user.decoded.name;
 
     const isAuthenticated = store.getState().auth.isAuthenticated;
     //function to add files

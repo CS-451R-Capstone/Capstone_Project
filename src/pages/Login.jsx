@@ -76,7 +76,7 @@ function Login(){
       setErrors(Errors);
 
      }
-    }, [auth.isAuthenticated, auth.user.name, Errors, history, posting, className, sectionID]);
+    }, [auth.isAuthenticated, Errors, history, posting, className, sectionID]);
     
 
     const handleSubmit = () => {
