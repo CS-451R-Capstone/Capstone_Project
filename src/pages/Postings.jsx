@@ -15,8 +15,6 @@ function Postings(){
     //gets a properties from the last page visited (in this case with the workflow, after someone clicks see postings under a class on the home page
     // the properties get redirected here)
     const location = useLocation();
-    //console.log(props, " props");
-    //console.log(location, " useLocation Hook");
     const card = location.state?.card;
     const [postInfo, setPostInfo] = useState([]);
     useEffect(() => {

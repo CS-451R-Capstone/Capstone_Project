@@ -12,29 +12,45 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import store from "../store"
 import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+
+
 
 function createData(name, calories, fat, carbs, protein) {
     return { name, calories, fat, carbs, protein };
 };
 
   const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
+    createData('tony', 159, 6.0, 24, 4.0),
+    createData('dally', 237, 9.0, 37, 4.3),
 
   ];
-
-
   function MyAccount(){
     const isAuthenticated = store.getState().auth.isAuthenticated;
     const history = useHistory();
+    const [postInfo, setPostInfo] = useState([]);
 
+    
+    useEffect(() => {
+        async function getPostings(){
+            const ctrl = new AbortController();
+            setTimeout(() => ctrl.abort(), 5000);
+            const response = fetch(`http://localhost:5000/user_applications?user=${encodeURIComponent(store.getState().auth.user.decoded.name)}`,{method: "GET"})
+                //const message = `An error occurred: ${response.statusText}`;
+                //window.alert(message);
+                let postInfo = (await response).json();
+                setPostInfo(postInfo);
+                console.log(postInfo);
+        }
+        getPostings();
+        return;
+    }, [postInfo.length])
+    
     const RedirectToLogin = () => {
         if(!isAuthenticated){
             history.push('/login');
         }
     };
-
-    if(isAuthenticated){
         return(
             <div className='App'>
                 <div>
@@ -43,8 +59,8 @@ function createData(name, calories, fat, carbs, protein) {
                 <h1>
                     My Account Page
                 </h1>
-                <p>Name: {store.getState().auth.user.name}</p>
-                <p>Email: </p>
+                <p>Name: {store.getState().auth.user.decoded.name}</p>
+                <p>Email: {store.getState().auth.user.email}</p>
                 <h2>Jobs applied to </h2>
     
                 <TableContainer component={Paper}>
@@ -77,16 +93,5 @@ function createData(name, calories, fat, carbs, protein) {
             
         );
 
-    }
-    /*
-    else if(!isAuthenticated){
-        return(
-            <Redirect to={{pathname: '/login', state: {posting, className, sectionID}}}/>
-        )
-    }
-    */
-
 }
 export default MyAccount;
-
-// store.getState().auth.user.name

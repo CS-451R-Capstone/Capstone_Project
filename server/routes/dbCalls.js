@@ -137,24 +137,19 @@ recordRoutes.route('/postings').get((req, res) => {
 
 recordRoutes.route('/user_applications').get((req, res) => 
 {
-  dbo.getDB().collection('Classes').aggregate([
+  dbo.getDB().collection('Classes').find(
   {
-    $project: {
-      _id: 0,
-      className: 1,
-      postings:
-      {
-        job_title: 1,
-        GTA_CERT: 1,
-        Applicants: 1
-      }
-    }, 
-  }]).toArray((err, result) => {
+
+    'postings.Applicants': {$elemMatch: {applicant: req.query.user}}
+
+  }, {className: 1, postings: {job_title: 1, GTA_CERT: 1}}).toArray((err, result) => {
     if(err){
       throw err;
     }
+    console.log(result)
     res.json(result);
   })
+  
 }
 );
 
@@ -164,7 +159,7 @@ recordRoutes.route('/applicants').post(upload({createParentPath: true}),
     {
         dbo.getDB().collection('Classes').updateOne(
             {sectionID: req.body.Section, className: req.body.Class, postings: {$elemMatch: {job_title: req.body.Job}}},
-            {$push: {'postings.$.Applicants': [req.files, req.body.Applicant]}}
+            {$push: {'postings.$.Applicants': {resume: req.files, applicant: req.body.Applicant}}}
         )
 
         res.json({status: 'logged', message: 'logged'})
