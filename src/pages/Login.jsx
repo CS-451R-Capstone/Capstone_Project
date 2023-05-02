@@ -46,6 +46,9 @@ function Login(){
     //state for errors if incorrect email/password is entered (comes from Redux)
     const Errors = useSelector(state => state.errors);
 
+
+    const adminUser = useSelector(state => state.auth.user.isAdmin);
+
     //dispatches action (logged in, logged out, set current user, etc)
 
     const dispatch = useDispatch();
@@ -53,9 +56,12 @@ function Login(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
-    const [isAdmin, setisAdmin] = useState(false);
 
-    useEffect(() => {
+
+
+
+
+    useEffect(() => {      
       if(auth.isAuthenticated && posting != null && className != null && sectionID != null){
         history.push({
           pathname: '/submission-portal',
@@ -68,14 +74,14 @@ function Login(){
       }
       else if(auth.isAuthenticated){
         history.push('/');
+  
       }
       // Enter another condition here where user is authenticated BUT the user is an admin, so that the admin view is pulled up
      else if(Errors){
       setErrors(Errors);
 
      }
-    }, [auth.isAuthenticated, Errors, history, posting, className, sectionID, isAdmin]);
-
+    }, [auth.isAuthenticated, Errors, history, posting, className, sectionID]);
 
 
     function findAdmin(users){
@@ -89,8 +95,25 @@ function Login(){
       }
       if(adminFound){
         console.log("user is an admin!");
-        setisAdmin(adminFound);
+        const userData = {
+          email: email,
+          password: password,
+          isAdmin: adminFound
+        }
+        store.dispatch(loginUser(userData, dispatch));
       }
+      else if(!adminFound){
+        console.log("user is a student");
+        const userData = {
+          email: email,
+          password: password,
+          isAdmin: adminFound
+        } 
+        store.dispatch(loginUser(userData, dispatch));
+
+      }
+      
+
       
     }
 
@@ -102,15 +125,14 @@ function Login(){
       }
     }
 
+
+
+
+
+
+
     function handleSubmit(){
       getUsers();
-      const userData = {
-        email: email,
-        password: password,
-        isAdmin: isAdmin
-      }
-      store.dispatch(loginUser(userData, dispatch));
-
         
     }
 
