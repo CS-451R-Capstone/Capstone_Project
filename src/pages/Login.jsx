@@ -74,12 +74,11 @@ function Login(){
       setErrors(Errors);
 
      }
-    }, [auth.isAuthenticated, Errors, history, posting, className, sectionID]);
+    }, [auth.isAuthenticated, Errors, history, posting, className, sectionID, isAdmin]);
 
 
 
     function findAdmin(users){
-      console.log(isAdmin);
       let adminFound = false;
       for (let index = 0; index < users.length; index++) {
         if(users.at(index).email === email && users.at(index).isAdmin){
@@ -91,7 +90,6 @@ function Login(){
       if(adminFound){
         console.log("user is an admin!");
         setisAdmin(adminFound);
-        console.log(isAdmin);
       }
       
     }
@@ -106,36 +104,13 @@ function Login(){
 
     function handleSubmit(){
       getUsers();
-      /*
       const userData = {
         email: email,
         password: password,
         isAdmin: isAdmin
-      };
-        
-
-        //when someone clicks sign in, this action is fired and the payload is what the user entered
-      
-        
-
+      }
       store.dispatch(loginUser(userData, dispatch));
-      */
-        
 
-        
-
-
-
-
-
-
-
-      
-      
-      
-      
-      
-      
         
     }
 
