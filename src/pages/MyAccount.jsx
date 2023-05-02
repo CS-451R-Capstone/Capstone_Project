@@ -45,12 +45,6 @@ function createData(className, posting, sectionID) {
         getPostings();
         return;
     }, [postInfo.length])
-    
-    const RedirectToLogin = () => {
-        if(!isAuthenticated){
-            history.push('/login');
-        }
-    };
         return(
             <div className='App'>
                 <div>
@@ -61,6 +55,7 @@ function createData(className, posting, sectionID) {
                 </h1>
                 <p>Name: {store.getState().auth.user.decoded.name}</p>
                 <p>Email: {store.getState().auth.user.email}</p>
+                <p>Admin?: {store.getState().auth.user.isAdmin ? "yes" : "no"}</p>
                 <h2>Jobs applied to </h2>
     
                 <TableContainer component={Paper}>
