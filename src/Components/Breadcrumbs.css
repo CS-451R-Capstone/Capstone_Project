@@ -1,0 +1,18 @@
+.breadcrumb-not-active {
+        color: #0080ff;
+    }
+    
+    .breadcrumb-active {
+        color: #000000;
+    }
+    
+    .breadcrumb-arrow-active {
+        margin-left: 10px;
+        margin-right: 10px;
+        color: #000000;
+    }
+    .breadcrumb-arrow-not-active {
+        margin-left: 10px;
+        margin-right: 10px;
+        color: #0080ff;
+    }
