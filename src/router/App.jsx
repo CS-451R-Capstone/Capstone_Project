@@ -4,6 +4,7 @@ import Home from '../pages/Home';
 import '../App.css';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 import Submission_Portal from '../pages/Submission_Portal';
+import CreatePosting from '../pages/CreatePosting';
 import MyAccount from '../pages/MyAccount';
 import Postings from '../pages/Postings';
 import { Provider } from 'react-redux';
@@ -21,6 +22,7 @@ function App() {
               <Route exact path='/login' component={Login} />
               <Route exact path='/my-account' component={MyAccount}/>
               <Route exact path='/submission-portal' component={Submission_Portal}/>
+              <Route exact path='/create-posting' component={CreatePosting}/>
               
             </Switch>
 
