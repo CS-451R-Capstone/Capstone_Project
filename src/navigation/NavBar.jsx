@@ -40,6 +40,7 @@ function NavBar() {
                     </ul>
                     <i onClick={() => setOpen(!open)} class="fa-solid fa-bars burger" />
                 </nav>
+                <Breadcrumbs/>
             </div>
         )
 
@@ -59,6 +60,7 @@ function NavBar() {
                     </ul>
                     <i onClick={() => setOpen(!open)} class="fa-solid fa-bars burger" />
                 </nav>
+                <Breadcrumbs/>
             </div>
 
 
