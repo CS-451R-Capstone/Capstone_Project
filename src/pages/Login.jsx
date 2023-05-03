@@ -46,9 +46,6 @@ function Login(){
     //state for errors if incorrect email/password is entered (comes from Redux)
     const Errors = useSelector(state => state.errors);
 
-
-    const adminUser = useSelector(state => state.auth.user.isAdmin);
-
     //dispatches action (logged in, logged out, set current user, etc)
 
     const dispatch = useDispatch();
@@ -77,7 +74,7 @@ function Login(){
   
       }
       // Enter another condition here where user is authenticated BUT the user is an admin, so that the admin view is pulled up
-     else if(Errors){
+      else if(Errors){
       setErrors(Errors);
 
      }

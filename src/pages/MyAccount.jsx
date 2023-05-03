@@ -11,7 +11,6 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import store from "../store"
-import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
 
@@ -20,46 +19,52 @@ function createData(className, posting, sectionID) {
     return { className, posting, sectionID};
 };
 
-  const rows = [
-    createData('tony', 159, 6.0, 24, 4.0),
-    createData('dally', 237, 9.0, 37, 4.3),
 
-  ];
   function MyAccount(){
-    const isAuthenticated = store.getState().auth.isAuthenticated;
-    const history = useHistory();
+    //const isAuthenticated = store.getState().auth.isAuthenticated;
+    //const history = useHistory();
+
+    const isAdmin = store.getState().auth.user.isAdmin;
+    const user = store.getState().auth.user.decoded.name;
+
     const [postInfo, setPostInfo] = useState([]);
+    
 
     
     useEffect(() => {
         async function getPostings(){
             const ctrl = new AbortController();
             setTimeout(() => ctrl.abort(), 5000);
-            const response = fetch(`http://localhost:5000/user_applications?user=${encodeURIComponent(store.getState().auth.user.decoded.name)}`,{method: "GET"})
+            const response = await fetch(`http://localhost:5000/user_applications?user=${encodeURIComponent(store.getState().auth.user.decoded.name)}`,{method: "GET"})
                 //const message = `An error occurred: ${response.statusText}`;
                 //window.alert(message);
-                let postInfo = (await response).json();
+                let postInfo = await response.json();
                 setPostInfo(postInfo);
                 console.log(postInfo);
         }
         getPostings();
         return;
     }, [postInfo.length])
-        return(
-            <div className='App'>
-                <div>
-                    <NavBar/>
-                </div>
-                <h1>
-                    My Account Page
-                </h1>
-                <p>Name: {store.getState().auth.user.decoded.name}</p>
-                <p>Email: {store.getState().auth.user.email}</p>
-                <p>Admin?: {store.getState().auth.user.isAdmin ? "yes" : "no"}</p>
-                <h2>Jobs applied to </h2>
+    const rows = [
+        createData('tony', 159, 6.0, 24, 4.0),
+        createData('dally', 237, 9.0, 37, 4.3)
     
-                <TableContainer component={Paper}>
-                <Table sx={{ maxWidth: 650, position: "fixed", top: 300, left: '30%' }}>
+    ];
+        if(isAdmin){
+            return(
+                <div className='App'>
+                    <div>
+                        <NavBar/>
+                    </div>
+                    <h1>
+                        My Account Page
+                    </h1>
+                    <p>Name: {user}</p>
+                    <p>Email: {store.getState().auth.user.email}</p>
+                    <p>Admin?: {isAdmin ? "yes" : "no"}</p>
+                    <h2>Job Postings Created</h2>
+                    <TableContainer component={Paper}>
+                        <Table sx={{ maxWidth: 650, position: "fixed", top: 300, left: '30%' }}>
     
                     <TableHead>
                     <TableRow>
@@ -80,6 +85,77 @@ function createData(className, posting, sectionID) {
     
                         </TableRow>
                     ))}
+                    </TableBody>
+                </Table>
+                </TableContainer>
+
+                </div>
+
+            )
+        }
+
+        return(
+            <div className='App'>
+                <div>
+                    <NavBar/>
+                </div>
+                <h1>
+                    My Account Page
+                </h1>
+                <p>Name: {store.getState().auth.user.decoded.name}</p>
+                <p>Email: {store.getState().auth.user.email}</p>
+                <p>Admin?: {isAdmin ? "yes" : "no"}</p>
+                <h2>Jobs applied to </h2>
+    
+                <TableContainer component={Paper}>
+                <Table sx={{ maxWidth: 650, position: "fixed", top: 300, left: '30%' }}>
+    
+                    <TableHead>
+                    <TableRow>
+                        <TableCell>Class</TableCell>
+                        <TableCell align="center">Job Posting</TableCell>
+                    </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {postInfo.map((post) => {
+                            if(post.postings[0].job_title === "GTA" && post.postings[0].Applicants.length > 1){
+                                return(
+                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                        <TableCell component="th" scope="row">
+                                            {post.className + "-" + post.sectionID}
+                                        </TableCell>
+                                        <TableCell align="center" component="th" scope="row">
+                                            GTA
+                                        </TableCell>
+                                        <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
+        
+                                    </TableRow>
+    
+                                )
+
+                            }
+                            if(post.postings[1].job_title === "Grader" && post.postings[1].Applicants.length > 1){
+                                return(
+                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                        <TableCell component="th" scope="row">
+                                            {post.className + "-" + post.sectionID}
+                                        </TableCell>
+                                        <TableCell align="center" component="th" scope="row">
+                                            Grader
+                                        </TableCell>
+                                        <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
+        
+                                    </TableRow>
+    
+                                )
+
+                            }
+
+
+                           
+                            
+
+                        })}
                     </TableBody>
                 </Table>
                 </TableContainer>
