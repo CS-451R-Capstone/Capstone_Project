@@ -3,8 +3,12 @@ import logo from '../UMKC_Logo.png';
 import {Link} from 'react-router-dom';
 import { logoutUser } from "../actions/authActions";
 import { useDispatch } from "react-redux";
+
+import Breadcrumbs from "../Components/Breadcrumbs";
+
 import { useCallback } from "react";
 import store from '../store';
+
 
 function NavBar() {
     const [open, setOpen] = useState(false);

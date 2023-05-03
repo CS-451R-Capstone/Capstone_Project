@@ -61,7 +61,7 @@ function Login(){
     useEffect(() => {      
       if(auth.isAuthenticated && posting != null && className != null && sectionID != null){
         history.push({
-          pathname: '/submission-portal',
+          pathname: '/postings/submission-portal',
           state: {
               posting: posting,
               className: className,
