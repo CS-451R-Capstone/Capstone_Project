@@ -59,7 +59,7 @@ function Login(){
     useEffect(() => {
       if(auth.isAuthenticated){
         history.push({
-          pathname: '/submission-portal',
+          pathname: '/postings/submission-portal',
           state: {
               posting: posting,
               className: className,

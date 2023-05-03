@@ -12,8 +12,6 @@ import jwtDecode from 'jwt-decode';
 import setAuthToken from '../utils/setAuthToken';
 import { setCurrentUser, logoutUser } from '../actions/authActions';
 
-
-
 //import SampleLogin from '../pages/SampleLogin';
 /*
 if(localStorage.jwtToken){
@@ -37,10 +35,10 @@ function App() {
         <div className="App">
           <div className='content'>
             <Switch>
-              <Route exact path='/' component={Home} />
+              <Route exact path='/' component={Home}/>
               <Route exact path='/postings' component={Postings}/>
               <Route exact path='/login' component={Login} />
-              <Route exact path='/submission-portal' component={Submission_Portal}/>
+              <Route exact path='/postings/submission-portal' component={Submission_Portal}/>
               <Route exact path='/my-account' component={MyAccount}/>
             </Switch>
 

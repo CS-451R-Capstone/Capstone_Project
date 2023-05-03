@@ -31,9 +31,6 @@ function NavBar() {
                 </ul>
                 <i onClick={() => setOpen(!open)} class="fa-solid fa-bars burger" />
             </nav>
-            <div>
-                <Breadcrumbs/>
-            </div>
         </div>
     )
 }
