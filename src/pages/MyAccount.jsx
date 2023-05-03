@@ -40,7 +40,6 @@ function createData(className, posting, sectionID) {
                 //window.alert(message);
                 let postInfo = await response.json();
                 setPostInfo(postInfo);
-                console.log(postInfo);
         }
         getPostings();
         return;
@@ -118,40 +117,62 @@ function createData(className, posting, sectionID) {
                     </TableHead>
                     <TableBody>
                         {postInfo.map((post) => {
-                            if(post.postings[0].job_title === "GTA" && post.postings[0].Applicants.length > 1){
-                                return(
-                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                        <TableCell component="th" scope="row">
-                                            {post.className + "-" + post.sectionID}
-                                        </TableCell>
-                                        <TableCell align="center" component="th" scope="row">
-                                            GTA
-                                        </TableCell>
-                                        <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
-        
-                                    </TableRow>
-    
-                                )
+                            let tableRow;
+                            if(post.postings[0].Applicants.length > 1 && post.postings[1].Applicants.length > 1){
+                                tableRow = <>
+                                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                    <TableCell component="th" scope="row">
+                                                        {post.className + "-" + post.sectionID}
+                                                    </TableCell>
+                                                    <TableCell align="center" component="th" scope="row">
+                                                        GTA
+                                                    </TableCell>
+                                                    <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
+
+                                                </TableRow>
+                                                <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                    <TableCell component="th" scope="row">
+                                                        {post.className + "-" + post.sectionID}
+                                                    </TableCell>
+                                                    <TableCell align="center" component="th" scope="row">
+                                                        Grader
+                                                    </TableCell>
+                                                    <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
+
+                                                </TableRow>
+
+
+                                            </>
+                            }
+                            else if(post.postings[0].Applicants.length > 1){
+                                tableRow = <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell component="th" scope="row">
+                                                    {post.className + "-" + post.sectionID}
+                                                </TableCell>
+                                                <TableCell align="center" component="th" scope="row">
+                                                    GTA
+                                                </TableCell>
+                                                <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
+
+                                            </TableRow>
+                            
+                            }
+                            else{
+                                tableRow = <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                                                <TableCell component="th" scope="row">
+                                                    {post.className + "-" + post.sectionID}
+                                                </TableCell>
+                                                <TableCell align="center" component="th" scope="row">
+                                                    Grader
+                                                </TableCell>
+                                                <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
+
+                                            </TableRow>
 
                             }
-                            if(post.postings[1].job_title === "Grader" && post.postings[1].Applicants.length > 1){
-                                return(
-                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                        <TableCell component="th" scope="row">
-                                            {post.className + "-" + post.sectionID}
-                                        </TableCell>
-                                        <TableCell align="center" component="th" scope="row">
-                                            Grader
-                                        </TableCell>
-                                        <TableCell align="right"><Button variant="contained">Edit</Button></TableCell>
-        
-                                    </TableRow>
-    
-                                )
-
-                            }
-
-
+                            return(
+                                tableRow
+                            );
                            
                             
 
