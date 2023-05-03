@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {loginUser} from '../actions/authActions';
@@ -12,6 +12,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import store from "../store"
+import { ElevatorSharp } from '@mui/icons-material';
 
 function Copyright(props) {
     return (
@@ -31,7 +33,6 @@ const theme = createTheme();
 
 
 function Login(){
-
     const location = useLocation();
     const history = useHistory();
     const posting = location.state?.posting;
@@ -49,15 +50,16 @@ function Login(){
 
     const dispatch = useDispatch();
 
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({});
 
-    
 
-    useEffect(() => {
-      if(auth.isAuthenticated){
+
+
+
+    useEffect(() => {      
+      if(auth.isAuthenticated && posting != null && className != null && sectionID != null){
         history.push({
           pathname: '/postings/submission-portal',
           state: {
@@ -67,22 +69,68 @@ function Login(){
           }
         });
       }
+      else if(auth.isAuthenticated){
+        history.push('/');
+  
+      }
       // Enter another condition here where user is authenticated BUT the user is an admin, so that the admin view is pulled up
-     else if(Errors){
+      else if(Errors){
       setErrors(Errors);
 
      }
-    }, [auth.isAuthenticated, auth.user.name, Errors, history, posting, className, sectionID]);
-    
+    }, [auth.isAuthenticated, Errors, history, posting, className, sectionID]);
 
-    const handleSubmit = () => {
+
+    function findAdmin(users){
+      let adminFound = false;
+      for (let index = 0; index < users.length; index++) {
+        if(users.at(index).email === email && users.at(index).isAdmin){
+          adminFound = true;
+          break;
+        }
+          
+      }
+      if(adminFound){
+        console.log("user is an admin!");
         const userData = {
-            email: email,
-            password: password
-        };
-        //when someone clicks sign in, this action is fired and the payload is what the user entered
-        dispatch(loginUser(userData, dispatch));
+          email: email,
+          password: password,
+          isAdmin: adminFound
+        }
+        store.dispatch(loginUser(userData, dispatch));
+      }
+      else if(!adminFound){
+        console.log("user is a student");
+        const userData = {
+          email: email,
+          password: password,
+          isAdmin: adminFound
+        } 
+        store.dispatch(loginUser(userData, dispatch));
 
+      }
+      
+
+      
+    }
+
+    async function getUsers(){
+      const response = await fetch('http://localhost:5000/users');
+      if(response.ok){
+        let users = await response.json();
+        findAdmin(users);
+      }
+    }
+
+
+
+
+
+
+
+    function handleSubmit(){
+      getUsers();
+        
     }
 
     return(

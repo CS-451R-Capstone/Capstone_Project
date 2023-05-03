@@ -2,7 +2,8 @@ import '../App.css';
 import {useState} from 'react';
 import NavBar from '../navigation/NavBar';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import store from '../store';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -14,6 +15,9 @@ function Submission_Portal(){
     //react hook to change the state of the file uploads
     const [fileUpload, setFileUpload] = useState(null);
    
+    const user = store.getState().auth.user.decoded.name;
+
+    const isAuthenticated = store.getState().auth.isAuthenticated;
     //function to add files
     async function uploadFile() {
         if(fileUpload == null) return; //If no file is submitted bail out.
@@ -26,7 +30,8 @@ function Submission_Portal(){
             formData.append("Class", className);
             formData.append("Section", sectionID);
             formData.append("Job", posting.job_title);
-            console.log(fileUpload)
+            formData.append("Applicant", user);
+            console.log(fileUpload);
             try
             {
                 //Post to the backend, where it is listening.
@@ -41,22 +46,32 @@ function Submission_Portal(){
         }
     };
 
-    return(
-        <div className='App'>
-            <div>
-                <NavBar/>
+    if(isAuthenticated){
+        return(
+            <div className='App'>
+                <div>
+                    <NavBar/>
+                </div>
+                <h1>{`Class: `+ className + `, Section: ` + sectionID}</h1>
+                <h2>{`Job Title: `+posting.job_title}</h2>
+                <div>
+                    <input type="file" onChange={(event) => {setFileUpload(event.target.files[0])}}/>
+                    <button onClick={uploadFile}>Upload File</button> 
+    
+                </div>
+    
             </div>
-            <h1>{`Class: `+ className + `, Section: ` + sectionID}</h1>
-            <h2>{`Job Title: `+posting.job_title}</h2>
-            <div>
-                <input type="file" onChange={(event) => {setFileUpload(event.target.files[0])}}/>
-                <button onClick={uploadFile}>Upload File</button> 
+           
+        )
 
-            </div>
+    }
+    else if(!isAuthenticated){
+        return(
+            <Redirect to={{pathname: '/login', state: {posting, className, sectionID}}}/>
+        )
+    }
 
-        </div>
-       
-    )
+   
 
 }
 

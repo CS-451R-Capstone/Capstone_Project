@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import {
     GET_ERRORS,
     SET_CURRENT_USER,
-    USER_LOADING
+    USER_LOADING,
 } from "./types";
 
 export const registerUser = (userData, history) => dispatch => {
@@ -20,6 +20,7 @@ export const registerUser = (userData, history) => dispatch => {
       );
   };
 
+
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios
@@ -32,9 +33,11 @@ export const loginUser = userData => dispatch => {
         setAuthToken(token);
         // Decode token to get user data
         const decoded = jwt_decode(token);
+        const email = userData.email;
+        const isAdmin = userData.isAdmin
         //check if the current user is an admin
         // Set current user
-        dispatch(setCurrentUser(decoded));
+        dispatch(setCurrentUser({decoded, email, isAdmin}));
         console.log("user logged in");
         //console.log(userData);
       })
@@ -44,7 +47,6 @@ export const loginUser = userData => dispatch => {
           payload: err.response.data
         })
       );
-    
   };
   
   // Set logged in user
