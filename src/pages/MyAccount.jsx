@@ -62,12 +62,14 @@ function MyAccount(){
                 <p>Name: {user}</p>
                 <p>Email: {store.getState().auth.user.email}</p>
                 <p>Admin?: {isAdmin ? "yes" : "no"}</p>
-                <h2>Job Postings Created</h2>
                 <div>
                     <br></br>
-                    <Button onClick={() => history.push('/create-posting')} variant="contained">Create Posting</Button>
+                    <Button onClick={() => history.push('/my-account/create-posting')} variant="contained">Create Posting</Button>
+                    <br></br>
 
                 </div>
+                
+                <h2>Job Postings Created</h2> 
                 <TableContainer component={Paper}>
                     <Table sx={{ maxWidth: 650, position: "fixed", top: 300, left: '30%' }}>
                         <TableHead>

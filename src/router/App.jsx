@@ -22,7 +22,7 @@ function App() {
               <Route exact path='/login' component={Login} />
               <Route exact path='/postings/submission-portal' component={Submission_Portal}/>
               <Route exact path='/my-account' component={MyAccount}/>
-              <Route exact path='/create-posting' component={CreatePosting}/>
+              <Route exact path='/my-account/create-posting' component={CreatePosting}/>
               
             </Switch>
 

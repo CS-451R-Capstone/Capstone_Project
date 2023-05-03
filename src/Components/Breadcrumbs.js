@@ -33,6 +33,22 @@ export default function Breadcrumbs() {
 
         )
       }
+      else if(currentLink === '/my-account'){
+        <div className="crumb" key={crumb}>
+          <Link to={currentLink}>{crumb}</Link>
+        </div>
+
+      }
+      else if(currentLink === "/my-account/create-posting"){
+        return (
+          //returns breadcrumb array
+          <div className="crumb" key={crumb}>
+            <Link to={currentLink}>{crumb}</Link>
+          </div>
+
+        )
+
+      }
     })
 
   if (crumbs.length != 0) {
