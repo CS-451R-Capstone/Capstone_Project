@@ -6,7 +6,7 @@ import Box from '@mui/material/Box';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import React, {useState, useEffect} from 'react';
 import store from '../store';
-import { useHistory } from 'react-router';
+//import { useHistory } from 'react-router';
 
 function CreatePosting(){
     const [Class, setClass] = useState('');
@@ -14,9 +14,9 @@ function CreatePosting(){
     const [JobTitle, setJobTitle] = useState('');
     const [is_GTA_Required, setIs_GTA_Required] = useState(false);
     const [unlockButton, setUnlockButton] = useState(true);
-    const history = useHistory();
+    //const history = useHistory();
 
-    const adminName = store.getState().auth.user.name;
+    const adminName = store.getState().auth.user.decoded.name;
 
     async function createPosting(){
         if(Class === '' || SectionID === ''){
@@ -24,6 +24,11 @@ function CreatePosting(){
         }
         else{
             alert('posting created!');
+            console.log(Class);
+            console.log(SectionID);
+            console.log(JobTitle);
+            console.log(is_GTA_Required);
+            console.log(adminName);
             let data = new FormData();
             const ctrl = new AbortController();
             setTimeout(() => ctrl.abort(), 5000);
