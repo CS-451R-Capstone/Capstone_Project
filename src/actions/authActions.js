@@ -1,6 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 import jwt_decode from 'jwt-decode';
+import store from '../store';
 
 import {
     GET_ERRORS,
@@ -19,8 +20,6 @@ export const registerUser = (userData, history) => dispatch => {
         })
       );
   };
-
-
 // Login - get user token
 export const loginUser = userData => dispatch => {
     axios

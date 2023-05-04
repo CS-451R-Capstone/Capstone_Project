@@ -94,6 +94,14 @@ recordRoutes.route('/login').post((req, res) => {
     });
 });
 
+recordRoutes.route('/create-posting').post((req, res) => {
+  let entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{"job_title": req.body.job, "GTA_CERT": req.body.isGTARequired, "Applicants": [""]}]};
+  dbo.getDB().collection('Classes').insertOne(entry, (err, result) => {
+    if(err) throw err;
+    res.json(result);
+  })
+})
+
 recordRoutes.route('/users').get((req, res) => {
   dbo.getDB().collection('Logins').aggregate([{$project: {_id: 0, name: 1, email: 1, isAdmin: 1}}]).toArray((err, result) => {
     if(err){
