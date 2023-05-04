@@ -95,18 +95,22 @@ recordRoutes.route('/login').post((req, res) => {
 });
 
 recordRoutes.route('/create-posting').post((req, res) => {
+  console.log(req.body);
   let entry = {};
   if(req.body.job === "GTA"){
-    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{"job_title": req.body.job, "GTA_CERT": req.body.isGTARequired, "Applicants": [""]}, {}]};
+    console.log("posting is for a GTA");
+    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{"job_title": req.body.job, "GTA_CERT": Boolean(req.body.isGTARequired), "Applicants": [""]}, {}]};
   }
   else if(req.body.job === "Grader"){
-    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{}, {"job_title": req.body.job, "GTA_CERT": req.body.isGTARequired, "Applicants": [""]}]};
+    console.log("posting is for a Grader");
+    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{}, {"job_title": req.body.job, "GTA_CERT": Boolean(req.body.isGTARequired), "Applicants": [""]}]};
 
   }
   
   dbo.getDB().collection('Classes').insertOne(entry, (err, result) => {
-    if(err) throw err;
+    if(err){throw err};
     res.json(result);
+    console.log("posting created!");
   })
 })
 

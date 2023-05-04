@@ -19,6 +19,11 @@ app.use(
 );
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  limit: '10mb',
+  extended: true,
+  parameterLimit: 50000
+}));
 
 const dbo = require("./db/connection");
 const recordRoutes = require("./routes/dbCalls");
