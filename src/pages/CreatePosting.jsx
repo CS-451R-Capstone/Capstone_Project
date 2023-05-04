@@ -13,19 +13,24 @@ function CreatePosting(){
     const [SectionID, setSectionID] = useState('');
     const [JobTitle, setJobTitle] = useState('');
     const [is_GTA_Required, setIs_GTA_Required] = useState(false);
-    const [classFound, setClassFound] = useState([]);
     //const history = useHistory();
 
     const adminName = store.getState().auth.user.decoded.name;
 
     async function checkDuplicateClass(){
-        let response = await fetch(`http://localhost:5000/find-class=class${Class}`, {method: 'GET'});
-        setClassFound(response);
-
+        let response = await fetch(`http://localhost:5000/find-class?class=${Class}&section=${SectionID}`, {method: 'GET'});
+        let classFound = await response.json();
+        if(classFound.length > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 
     async function createPosting(){
+        let isClassFound = checkDuplicateClass();
         let data ={
             class : Class,
             section : SectionID,
@@ -36,29 +41,30 @@ function CreatePosting(){
         if(Class === '' || SectionID === ''){
             return;
         }
-        else{
-            /*
-            
-            checkDuplicateClass();
-            //checking if a class of the same name entered is in the database
-            if(classFound.length > 0){
-                //checking if the GTA posting within the class is empty AND the job title entered is 'GTA'
-                if(Object.keys(classFound[0].postings[0]).length === 0 && JobTitle === "GTA"){
-                    alert('posting created');
-                    const ctrl = new AbortController();
-                    setTimeout(() =>  ctrl.abort(), 5000);
-                    try{
-                        let request = await fetch()
-                    }
+        /*
+        else if(isClassFound){
+            if(JobTitle === "GTA"){
+                alert('posting created!');
+                const ctrl = new AbortController();
+                setTimeout(() => ctrl.abort(), 5000);
+                try{
+                    let request = await fetch("http://localhost:5000/create-gta-posting",
+                    {method: 'POST',
+                     headers: {'Content-Type': 'application/json'},
+                     body: JSON.stringify({class: data.class, section: data.section, job: data.job, isGTARequired: data.isGTARequired}),
+                     signal: ctrl.signal})
+                    console.log("HTTP response code", request.status);
+                }catch(e){
+                    console.log("something went wrong");
 
                 }
-                
-
-
 
             }
-            */
 
+
+        }
+        */
+        else{
             alert('posting created!');
             const ctrl = new AbortController();
             setTimeout(() => ctrl.abort(), 5000);
@@ -73,8 +79,6 @@ function CreatePosting(){
             catch(e){
                 console.log("something went wrong");
             }
-            //history.push('/my-account');
-
 
         }
     }

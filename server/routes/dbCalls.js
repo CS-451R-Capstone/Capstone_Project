@@ -96,31 +96,55 @@ recordRoutes.route('/login').post((req, res) => {
 
 recordRoutes.route('/create-gta-posting').post((req, res) => {
   dbo.getDB().collection('Classes').updateOne(
-    {sectionID: req.body.section, className: req.body.class},
-    {$push: {"postings.0": {job_title: req.body.job, GTA_CERT: Boolean(req.body.isGTARequired), Applicants: [""]}}}
+    {},
+    {$push: {postings:  {job_title: req.body.job, GTA_CERT: Boolean(req.body.isGTARequired), Applicants: [""]}}}
 
   )
   res.json({status: "updated GTA posting for class!", message: "updated GTA posting for class!"});
 })
 
 recordRoutes.route('/create-initial-posting').post((req, res) => {
-  console.log(req.body);
+  //console.log(req.body);
   let entry = {};
-  if(req.body.job === "GTA"){
+  if(
+    Object.keys(dbo.getDB().collection('Classes').find({className: req.body.class, sectionID: req.body.section})).length !== 0
+  ){
+    if(req.body.job === "Grader"){
+      dbo.getDB().collection('Classes').updateOne(
+        {sectionID: req.body.section, className: req.body.class},
+        {
+          $push: {
+            postings: {
+              $each: [{job_title: req.body.job, GTA_CERT: Boolean(req.body.isGTARequired), Applicants: [""]}], $position: 0}}
+        }
+    
+      )
+
+    }
+    res.json({status: "updated GTA posting for class!", message: "updated GTA posting for class!"});
+
+  }
+  else if(req.body.job === "GTA"){
     console.log("posting is for a GTA");
     entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{"job_title": req.body.job, "GTA_CERT": Boolean(req.body.isGTARequired), "Applicants": [""]}, {}]};
+    dbo.getDB().collection('Classes').insertOne(entry, (err, result) => {
+      if(err){throw err};
+      res.json(result);
+      console.log("posting created!");
+    })
   }
   else if(req.body.job === "Grader"){
     console.log("posting is for a Grader");
     entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{}, {"job_title": req.body.job, "GTA_CERT": Boolean(req.body.isGTARequired), "Applicants": [""]}]};
+    dbo.getDB().collection('Classes').insertOne(entry, (err, result) => {
+      if(err){throw err};
+      res.json(result);
+      console.log("posting created!");
+    })
 
   }
   
-  dbo.getDB().collection('Classes').insertOne(entry, (err, result) => {
-    if(err){throw err};
-    res.json(result);
-    console.log("posting created!");
-  })
+
 })
 
 recordRoutes.route('/users').get((req, res) => {
@@ -167,13 +191,12 @@ recordRoutes.route('/postings').get((req, res) => {
 recordRoutes.route('/find-class').get((req, res) => {
   dbo.getDB().collection('Classes').find(
     {
-      className: req.query.class
-    }, {className: 1, postings: {job_title: 1, GTA_CERT: 1}}
+      className: req.query.class, sectionID: req.query.section
+    }, {className: 1, sectionID: 1, postings: {job_title: 1, GTA_CERT: 1}}
   ).toArray((err, result) => {
     if(err){
       throw err;
     }
-    console.log(result);
     res.json(result);
   })
 })
