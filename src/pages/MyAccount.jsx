@@ -127,7 +127,7 @@ function MyAccount(){
                             if(post.postings[0].Applicants.length > 1 && 
                                 post.postings[1].Applicants.length > 1 &&
                                 post.postings[0].Applicants.find(element => element.applicant !== user) &&
-                                post.postings[1].Applicants.find(element => element.application !== user)){
+                                post.postings[1].Applicants.find(element => element.applicant !== user)){
                                 tableRow = <>
                                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                                     <TableCell component="th" scope="row">
@@ -167,7 +167,7 @@ function MyAccount(){
                                             </TableRow>
                             
                             }
-                            else{
+                            else if(post.postings[1].Applicants.length > 1 && post.postings[1].Applicants.find(element => element.applicant !== user)){
                                 tableRow = <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                                                 <TableCell component="th" scope="row">
                                                     {post.className + "-" + post.sectionID}
