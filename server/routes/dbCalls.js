@@ -95,12 +95,12 @@ recordRoutes.route('/login').post((req, res) => {
 });
 
 recordRoutes.route('/create-posting').post((req, res) => {
-  let entry = {}
+  let entry = {};
   if(req.body.job === "GTA"){
-    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{"job_title": req.body.job, "GTA_CERT": Boolean(req.body.isGTARequired), "Applicants": [""]}, {}]};
+    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{"job_title": req.body.job, "GTA_CERT": req.body.isGTARequired, "Applicants": [""]}, {}]};
   }
   else if(req.body.job === "Grader"){
-    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{}, {"job_title": req.body.job, "GTA_CERT": Boolean(req.body.isGTARequired), "Applicants": [""]}]};
+    entry = {"className" : req.body.class, "sectionID": req.body.section, "createdBy": req.body.admin, "postings" : [{}, {"job_title": req.body.job, "GTA_CERT": req.body.isGTARequired, "Applicants": [""]}]};
 
   }
   
