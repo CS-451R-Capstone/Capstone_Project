@@ -94,7 +94,16 @@ recordRoutes.route('/login').post((req, res) => {
     });
 });
 
-recordRoutes.route('/create-posting').post((req, res) => {
+recordRoutes.route('/create-gta-posting').post((req, res) => {
+  dbo.getDB().collection('Classes').updateOne(
+    {sectionID: req.body.section, className: req.body.class},
+    {$push: {"postings.0": {job_title: req.body.job, GTA_CERT: Boolean(req.body.isGTARequired), Applicants: [""]}}}
+
+  )
+  res.json({status: "updated GTA posting for class!", message: "updated GTA posting for class!"});
+})
+
+recordRoutes.route('/create-initial-posting').post((req, res) => {
   console.log(req.body);
   let entry = {};
   if(req.body.job === "GTA"){
@@ -154,6 +163,20 @@ recordRoutes.route('/postings').get((req, res) => {
         res.json(result);
     });
 });
+
+recordRoutes.route('/find-class').get((req, res) => {
+  dbo.getDB().collection('Classes').find(
+    {
+      className: req.query.class
+    }, {className: 1, postings: {job_title: 1, GTA_CERT: 1}}
+  ).toArray((err, result) => {
+    if(err){
+      throw err;
+    }
+    console.log(result);
+    res.json(result);
+  })
+})
 
 recordRoutes.route('/user_applications').get((req, res) => 
 {
