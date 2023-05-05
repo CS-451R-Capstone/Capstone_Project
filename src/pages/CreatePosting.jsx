@@ -40,12 +40,14 @@ function CreatePosting(){
             isGTARequired : is_GTA_Required
         };
         console.log("Are fields empty?: " + Class === "" ? "yes" : "no");
+        //added this if condition
         if(isClassFound){
             console.log("class was found in the database");
             alert('posting created!');
             const ctrl = new AbortController();
             setTimeout(() => ctrl.abort(), 5000);
             try{
+                //changed backend endpoint to update posting
                 let request = await fetch("http://localhost:5000/update-posting",
                 {method: 'POST',
                 headers: {'Content-Type': 'application/json'},
