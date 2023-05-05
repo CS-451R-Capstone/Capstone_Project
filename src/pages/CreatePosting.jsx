@@ -20,7 +20,7 @@ function CreatePosting(){
         let response = await fetch(`http://localhost:5000/find-class?class=${Class}&section=${SectionID}`, {method: 'GET'});
         let classFound = await response.json();
         if(classFound.length === 0){
-            console.log(classFound);
+            //console.log(classFound);
             return false
         }
         else{
@@ -30,8 +30,8 @@ function CreatePosting(){
     }
 
     async function createPosting(){
-        let isClassFound = checkDuplicateClass();
-        console.log("Does this class exist in the database?: " + isClassFound ? "yes" : "no");
+        let isClassFound = await checkDuplicateClass();
+        //console.log("Does this class exist in the database?: " + isClassFound ? "yes" : "no");
         let data ={
             class : Class,
             section : SectionID,
@@ -39,10 +39,10 @@ function CreatePosting(){
             admin : adminName,
             isGTARequired : is_GTA_Required
         };
-        console.log("Are fields empty?: " + Class === "" ? "yes" : "no");
+        //console.log("Are fields empty?: " + Class === "" ? "yes" : "no");
         //added this if condition
         if(isClassFound){
-            console.log("class was found in the database");
+            //console.log("class was found in the database");
             alert('posting created!');
             const ctrl = new AbortController();
             setTimeout(() => ctrl.abort(), 5000);
