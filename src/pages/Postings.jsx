@@ -15,8 +15,6 @@ function Postings(){
     //gets a properties from the last page visited (in this case with the workflow, after someone clicks see postings under a class on the home page
     // the properties get redirected here)
     const location = useLocation();
-    //console.log(props, " props");
-    //console.log(location, " useLocation Hook");
     const card = location.state?.card;
     const [postInfo, setPostInfo] = useState([]);
     useEffect(() => {
@@ -53,7 +51,7 @@ function Postings(){
                                                     {post.postings[0].GTA_CERT ? "GTA is required" : "GTA is not required"}
                                                 </Typography>
                                                 <CardActions>
-                                                    <Link to={{pathname: '/submission-portal', 
+                                                    <Link to={{pathname: '/login', 
                                                         state: {
                                                         posting: post.postings[0],
                                                         className: card.className,
@@ -72,7 +70,7 @@ function Postings(){
                                                     {post.postings[1].GTA_CERT ? "GTA is required" : "GTA is not required"}
                                                 </Typography>
                                                 <CardActions>
-                                                    <Link to={{pathname: '/submission-portal', 
+                                                    <Link to={{pathname: '/login', 
                                                             state: {
                                                             posting: post.postings[1], 
                                                             className: card.className, 

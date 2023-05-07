@@ -70,6 +70,11 @@ function Home() {
           }
           
         </Grid>
+        
+        
+        
+        
+        
       )
   }
 
@@ -77,7 +82,7 @@ function Home() {
     <>
       <div className="App">
         <div>
-          <NavBar />
+          <NavBar/>
         </div>
       </div>
       {classList()}
