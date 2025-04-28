@@ -4,6 +4,8 @@ Without this the front-end won't display anything on the page. DO THIS FIRST!
 First open a terminal and navigate to the server folder inside this project
 ### Available Scripts
 
+### `npm install`
+Install dependencies first
 #### `npm run backend-server`
 You can see the responses for each database call on http://localhost:5000
 Both are GET methods for information on the home page and postings page on the front end
